@@ -16,7 +16,11 @@ public class Task02 {
         int year = Integer.parseInt(args[0]);
         int century = year / 100;
 
-        if (year % 100 != 0) {
+        if (year % 100 != 0) {  // 2000 год - 20 век
+            if (year < 0) {
+                century = century * -1;
+            }
+
             century++;
         }
 
