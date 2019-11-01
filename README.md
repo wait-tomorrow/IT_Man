@@ -1,2 +1,2 @@
 # IT_Man
-ATTENTION! beerware license!
+ATTENTION! Beerware license!
