@@ -18,7 +18,6 @@ public class Task03 {
 
         //do some math
         for (int i = 0; i < resultArray.length; i++) {
-            //we got positive numbers in the array so using "-1" is safe
             int min = Integer.MAX_VALUE;
             int minInd = -1;
 
@@ -37,12 +36,10 @@ public class Task03 {
                 }
             }
 
-            if (minInd != -1 && maxInd != -1) {
-                resultArray[i] = min + max;
+            resultArray[i] = min + max;
 
-                clonedArray[minInd] = -1;
-                clonedArray[maxInd] = -1;
-            }
+            clonedArray[minInd] = -1;
+            clonedArray[maxInd] = -1;
         }
 
         return resultArray;

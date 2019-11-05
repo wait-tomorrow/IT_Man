@@ -29,13 +29,13 @@ class Task03Test {
     }
 
     @Test
-    void createModifiedArrayTest3() {
-        int[] array = new int[]{1, 1, 10, 10, 1, 10, 10, 1};
+    void createModifiedArrayTestNegativeNumbers() {
+        int[] array = new int[]{-1000, 10, 1100, -1100, 900, -2200, 5, 800, 500, -400};
         int[] clonedArray = array.clone();
 
         int[] result = Task03.createModifiedArray(clonedArray);
 
-        assertArrayEquals(new int[]{11, 11, 11, 11}, result);
+        assertArrayEquals(new int[]{-1100, -200, -200, 100, 15}, result);
         assertArrayEquals(array, clonedArray);
     }
 }
