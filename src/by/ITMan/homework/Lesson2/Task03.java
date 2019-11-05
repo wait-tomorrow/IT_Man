@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Task03 {
 
-    // CPU:     O(n+n^2)
+    // CPU:     O(n^2)
     // Memory:  O(n)
     public static int[] createModifiedArray(int[] a) {
         int[] clonedArray = new int[a.length];
