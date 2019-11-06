@@ -11,35 +11,28 @@ public class Task03 {
         int[] clonedArray = new int[a.length];
         int[] resultArray = new int[a.length / 2];
 
-        //make a copy of array
         for (int i = 0; i < a.length; i++) {
             clonedArray[i] = a[i];
         }
 
-        //do some math
-        for (int i = 0; i < resultArray.length; i++) {
-            int min = Integer.MAX_VALUE;
-            int minInd = -1;
+        boolean oneMore = true;
 
-            int max = 0;
-            int maxInd = -1;
+        while (oneMore) {
+            oneMore = false;
 
-            for (int j = 0; j < clonedArray.length; j++) {
-                if (clonedArray[j] != -1 && clonedArray[j] < min) {
-                    min = clonedArray[j];
-                    minInd = j;
-                }
+            for (int i = 0; i < clonedArray.length - 1; i++) {
+                if (clonedArray[i] > clonedArray[i + 1]) {
+                    int temp = clonedArray[i];
+                    clonedArray[i] = clonedArray[i + 1];
+                    clonedArray[i + 1] = temp;
 
-                if (clonedArray[j] != -1 && clonedArray[j] > max) {
-                    max = clonedArray[j];
-                    maxInd = j;
+                    oneMore = true;
                 }
             }
+        }
 
-            resultArray[i] = min + max;
-
-            clonedArray[minInd] = -1;
-            clonedArray[maxInd] = -1;
+        for (int i = 0; i < resultArray.length; i++) {
+            resultArray[i] = clonedArray[i] + clonedArray[clonedArray.length - 1 - i];
         }
 
         return resultArray;
