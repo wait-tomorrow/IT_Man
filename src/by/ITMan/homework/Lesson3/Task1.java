@@ -6,42 +6,27 @@ public class Task1 {
 
     // CPU:     O(n)
     // Memory:  O(n)
-    public static String intToBinary(int decimalNumber) {
-        int[] binaryTemp = new int[32];
-        int binaryTempIndexToInsert = 31;
+    public static String intToBinary(int decNumber) {
+        int binTempIndex = 31;
         char[] binaryNumber = new char[32];
 
-        boolean decimalNumberIsPositive = decimalNumber < 0 ? false : true;
-
-        while (decimalNumber != 0) {
-            binaryTemp[binaryTempIndexToInsert] = decimalNumber % 2;
-            decimalNumber = decimalNumber / 2;
-
-            binaryTempIndexToInsert--;
-        }
-
-        if (decimalNumberIsPositive) {
-            binaryNumber[0] = '0';
-        } else {
-            binaryNumber[0] = '1';
-        }
-
-        for (int i = 1; i < binaryTemp.length; i++) {
-            if (decimalNumberIsPositive) {
-                if (binaryTemp[i] == 0) {
-                    binaryNumber[i] = '0';
-                } else {
-                    binaryNumber[i] = '1';
-                }
-            } else {
-                if (binaryTemp[i] == 0) {
-                    binaryNumber[i] = '1';
-                } else {
-                    binaryNumber[i] = '0';
-                }
-            }
+        while (binTempIndex >= 0) {
+            binaryNumber[binTempIndex] = (char) (((1 << 31 - binTempIndex & decNumber) >>> 31 - binTempIndex) + 48);
+            binTempIndex--;
         }
 
         return new String(binaryNumber);
+    }
+
+    //CPU:      O(n)
+    //Memory:   O(1)
+    public static int binaryToInt(String binaryNumber) {
+        int intNumber = 0;
+
+        for (int i = 0; i < 32; i++) {
+            intNumber = intNumber + (binaryNumber.charAt(31 - i) - '0' << i);
+        }
+
+        return intNumber;
     }
 }
