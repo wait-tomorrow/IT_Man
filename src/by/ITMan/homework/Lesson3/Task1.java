@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Task1 {
 
     // CPU:     O(1)
-    // Memory:  O(n)
+    // Memory:  O(1)
     public static String intToBinary(int decNumber) {
         char[] binaryNumber = new char[32];
 
