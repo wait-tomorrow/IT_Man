@@ -23,7 +23,6 @@ class Task1Test {
 
     @Test
     void binaryToInt() {
-        System.out.println(Integer.MAX_VALUE);
         int number77 = Task1.binaryToInt("00000000000000000000000001001101");
         int number_77 = Task1.binaryToInt("11111111111111111111111110110011");
         int numberMaxValue = Task1.binaryToInt("01111111111111111111111111111111");
@@ -32,8 +31,8 @@ class Task1Test {
 
         assertEquals(77, number77);
         assertEquals(-77, number_77);
-//        assertEquals(Integer.MAX_VALUE, numberMaxValue);
-        //assertEquals(Integer.MIN_VALUE, numberMinValue);
-        //assertEquals(0, number0);
+        assertEquals(Integer.MAX_VALUE, numberMaxValue);
+        assertEquals(Integer.MIN_VALUE, numberMinValue);
+        assertEquals(0, number0);
     }
 }

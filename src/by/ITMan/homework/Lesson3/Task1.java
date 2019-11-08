@@ -7,12 +7,10 @@ public class Task1 {
     // CPU:     O(n)
     // Memory:  O(n)
     public static String intToBinary(int decNumber) {
-        int binTempIndex = 31;
         char[] binaryNumber = new char[32];
 
-        while (binTempIndex >= 0) {
-            binaryNumber[binTempIndex] = (char) (((1 << 31 - binTempIndex & decNumber) >>> 31 - binTempIndex) + 48);
-            binTempIndex--;
+        for (int i = 0; i < 32; i++) {
+            binaryNumber[i] = (char) (((1 << 31 - i & decNumber) >>> 31 - i) + '0');
         }
 
         return new String(binaryNumber);
