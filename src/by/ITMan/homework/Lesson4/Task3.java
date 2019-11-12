@@ -31,7 +31,7 @@ public class Task3 {
     }
 
     // CPU:     O(n)
-    // Memory:  O(n)
+    // Memory:  O(1)
     public static long[] findFixedErrors(int errorsCount, int[] errors, int[] errorsAfterFirstFix, int[] errorsAfterSecondFix) {
         long[] fixedErrors = new long[2];
         long errorsSum = 0;
