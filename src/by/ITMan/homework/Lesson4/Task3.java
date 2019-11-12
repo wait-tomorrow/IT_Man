@@ -24,7 +24,10 @@ public class Task3 {
             errorsAfterSecondFix[i] = sc.nextInt();
         }
 
-        findFixedErrors(n, errors, errorsAfterFirstFix, errorsAfterSecondFix);
+        long[] result = findFixedErrors(n, errors, errorsAfterFirstFix, errorsAfterSecondFix);
+
+        System.out.println(result[0]);
+        System.out.println(result[1]);
     }
 
     // CPU:     O(n)
