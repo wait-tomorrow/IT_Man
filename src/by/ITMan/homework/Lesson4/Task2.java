@@ -1,6 +1,5 @@
 package by.ITMan.homework.Lesson4;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task2 {
@@ -23,7 +22,7 @@ public class Task2 {
     // memory:  O(1)
     public static double calculateMinRadius(int[] lights, int streetLength) {
         quickSort(lights, 0, lights.length - 1);
-        System.out.println(Arrays.toString(lights));
+
         int maxSpaceBetweenLights = 0;
 
         for (int i = 0; i < lights.length - 1; i++) {
@@ -34,20 +33,13 @@ public class Task2 {
             }
         }
 
-        //the beginning of the street
-        if (lights[0] > maxSpaceBetweenLights) { //lights[0] = lights[0] - 0
-            maxSpaceBetweenLights = lights[0];
-        }
+        double streetBegin = lights[0]; // lights[0] - 0
+        double streetEnd = streetLength - lights[lights.length - 1];
 
-        //end of the street
-        if (streetLength - lights[lights.length - 1] > maxSpaceBetweenLights) {
-            maxSpaceBetweenLights = streetLength - lights[lights.length - 1];
-        }
-        System.out.println(maxSpaceBetweenLights);
-        return maxSpaceBetweenLights / 2.0;
+        return Math.max(maxSpaceBetweenLights / 2.0, Math.max(streetBegin, streetEnd));
     }
 
-    public static void quickSort(int[] a, int l, int r) {
+    private static void quickSort(int[] a, int l, int r) {
         int m = l + (r - l) / 2;
         if (a[l] > a[m]) {
             int t = a[l];
