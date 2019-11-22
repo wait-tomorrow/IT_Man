@@ -1,6 +1,7 @@
 package by.ITMan.homework.Lesson5;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.RandomAccess;
 
 public class Vector implements List, RandomAccess {
@@ -8,7 +9,11 @@ public class Vector implements List, RandomAccess {
     private int countElements;
 
     public Vector() {
-        list = new Object[10];
+        this(10);
+    }
+
+    public Vector(int initialSize) {
+        list = new Object[initialSize];
         countElements = 0;
     }
 
@@ -22,7 +27,7 @@ public class Vector implements List, RandomAccess {
             resize();
         }
 
-        for (int i = countElements - 1; i >= index; i++) {
+        for (int i = countElements - 1; i >= index; i--) {
             list[i + 1] = list[i];
         }
         list[index] = o;
@@ -33,9 +38,21 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public boolean addAll(int index, Collection collection) {
+        if (collection.size() == 0) {
+            return false;
+        }
 
+        if (size() + collection.size() > list.length) {
+            resize(list.length - size() + collection.size());
+        }
 
-        return false;
+        int i = 0;
+        for (Object o : collection) {
+            add(index + i, o);
+            i++;
+        }
+
+        return true;
     }
 
     @Override
@@ -71,11 +88,7 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public boolean isEmpty() {
-        if (countElements > 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return countElements == 0;
     }
 
     //====Collection
@@ -86,30 +99,48 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public boolean addAll(Collection collection) {
-        return false;
+        return addAll(countElements, collection);
     }
 
     @Override
     public boolean contains(Object o) {
-        return false;
+        return findElem(o) != -1;
     }
 
     @Override
     public boolean containsAll(Collection collection) {
-        return false;
+        for (Object o : collection) {
+            if (!contains(o)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
+        int elemIndex = findElem(o);
+
+        if (elemIndex != -1) {
+            remove(elemIndex);
+            return true;
+        }
+
         return false;
     }
 
     @Override
     public boolean removeAll(Collection collection) {
-        boolean result = this.isEmpty();
-        this.clear();
+        boolean isVectorChanged = false;
 
-        return result;
+        for (Object o : collection) {
+            if (remove(o)) {
+                isVectorChanged = true;
+            }
+        }
+
+        return isVectorChanged;
     }
 
     @Override
@@ -127,6 +158,17 @@ public class Vector implements List, RandomAccess {
         }
 
         return copy;
+    }
+
+    //return element index
+    private int findElem(Object o) {
+        for (int i = 0; i < size(); i++) {
+            if (Objects.equals(list[i], o)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     @Override
@@ -156,6 +198,34 @@ public class Vector implements List, RandomAccess {
         resize(0);
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Vector v2 = (Vector) obj;
+
+        if (size() != v2.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < size(); i++) {
+            if (!Objects.equals(get(i), v2.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private class vectorIterator implements Iterator {
         private int currentElem;
 
@@ -165,20 +235,12 @@ public class Vector implements List, RandomAccess {
 
         @Override
         public boolean hasNext() {
-            if (currentElem + 1 <= countElements) {
-                return true;
-            } else {
-                return false;
-            }
+            return currentElem + 1 <= countElements;
         }
 
         @Override
         public Object next() {
-            if (hasNext()) {
-                return list[++currentElem];
-            } else {
-                return null;
-            }
+            return list[currentElem++];
         }
     }
 }
