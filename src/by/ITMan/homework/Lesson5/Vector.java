@@ -26,6 +26,7 @@ public class Vector implements List, RandomAccess {
             list[i + 1] = list[i];
         }
         list[index] = o;
+        countElements++;
 
         return true;
     }
@@ -56,6 +57,9 @@ public class Vector implements List, RandomAccess {
         for (int i = index; i < countElements; i++) {
             list[i] = list[i + 1];
         }
+
+        //delete last elem
+        list[countElements] = null;
 
         return deletedElem;
     }
@@ -127,7 +131,7 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public Iterator iterator() {
-        return null;
+        return new vectorIterator();
     }
 
     private void resize(int addCapacity) {
@@ -152,5 +156,29 @@ public class Vector implements List, RandomAccess {
         resize(0);
     }
 
+    private class vectorIterator implements Iterator {
+        private int currentElem;
 
+        public vectorIterator() {
+            currentElem = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (currentElem + 1 <= countElements) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public Object next() {
+            if (hasNext()) {
+                return list[++currentElem];
+            } else {
+                return null;
+            }
+        }
+    }
 }
