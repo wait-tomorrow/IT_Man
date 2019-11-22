@@ -1,45 +1,63 @@
 package by.ITMan.homework.Lesson5;
 
 import java.util.Iterator;
+import java.util.RandomAccess;
 
-public class Vector implements List {
+public class Vector implements List, RandomAccess {
     private Object[] list;
     private int countElements;
-    private java.util.Vector test = new java.util.Vector();
 
     public Vector() {
         list = new Object[10];
         countElements = 0;
     }
 
-    public Vector(int size) {
-        list = new Object[size];
-        countElements = 0;
-    }
-
     @Override
     public boolean add(int index, Object o) {
-        return false;
+        if (index < 0 || index > countElements) {
+            return false;
+        }
+
+        if (countElements == list.length) {
+            resize();
+        }
+
+        for (int i = countElements - 1; i >= index; i++) {
+            list[i + 1] = list[i];
+        }
+        list[index] = o;
+
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection collection) {
+
+
         return false;
     }
 
     @Override
     public Object get(int index) {
-        return null;
+        return list[index];
     }
 
     @Override
     public Object set(int index, Object o) {
-        return null;
+        list[index] = o;
+        return true;
     }
 
     @Override
     public Object remove(int index) {
-        return null;
+        Object deletedElem = list[index];
+
+        countElements--;
+        for (int i = index; i < countElements; i++) {
+            list[i] = list[i + 1];
+        }
+
+        return deletedElem;
     }
 
     @Override
@@ -49,7 +67,7 @@ public class Vector implements List {
 
     @Override
     public boolean isEmpty() {
-        if(countElements > 0){
+        if (countElements > 0) {
             return false;
         } else {
             return true;
@@ -59,12 +77,7 @@ public class Vector implements List {
     //====Collection
     @Override
     public boolean add(Object o) {
-        if(countElements == list.length){
-            this.increaseSize();
-        }
-
-        list[countElements] = o;
-        countElements++;
+        return add(countElements, o);
     }
 
     @Override
@@ -117,8 +130,16 @@ public class Vector implements List {
         return null;
     }
 
-    private void increaseSize() {
-        Object[] newList = new Object[list.length * 2];
+    private void resize(int addCapacity) {
+        int newCapacity = 0;
+
+        if (addCapacity == 0) {
+            newCapacity = list.length + addCapacity;
+        } else {
+            newCapacity = list.length * 2;
+        }
+
+        Object[] newList = new Object[newCapacity];
 
         for (int i = 0; i < list.length; i++) {
             newList[i] = list[i];
@@ -126,4 +147,10 @@ public class Vector implements List {
 
         this.list = newList;
     }
+
+    private void resize() {
+        resize(0);
+    }
+
+
 }
