@@ -11,9 +11,9 @@ class LinkedListTest {
     @Test
     void getFirst() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertEquals("1", ll.getFirst());
     }
@@ -21,9 +21,9 @@ class LinkedListTest {
     @Test
     void getLast() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertEquals("3", ll.getLast());
     }
@@ -31,11 +31,11 @@ class LinkedListTest {
     @Test
     void offerFirst() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
-        ll.offerFirst("999");
+        assertTrue(ll.offerFirst("999"));
 
         assertArrayEquals(new Object[]{"999", "1", "2", "3"}, ll.toArray());
     }
@@ -43,11 +43,11 @@ class LinkedListTest {
     @Test
     void offerLast() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
-        ll.offerLast("999");
+        assertTrue(ll.offerLast("999"));
 
         assertArrayEquals(new Object[]{"1", "2", "3", "999"}, ll.toArray());
     }
@@ -55,9 +55,9 @@ class LinkedListTest {
     @Test
     void pollFirst() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Object result = ll.pollFirst();
 
@@ -68,9 +68,9 @@ class LinkedListTest {
     @Test
     void pollLast() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Object result = ll.pollLast();
 
@@ -81,20 +81,20 @@ class LinkedListTest {
     @Test
     void add() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
-        ll.add(0, "999");
+        assertTrue(ll.add(0, "999"));
 
         assertArrayEquals(new Object[]{"999", "1", "2", "3"}, ll.toArray());
 
         ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
-        ll.add(2, "999");
+        assertTrue(ll.add(2, "999"));
 
         assertArrayEquals(new Object[]{"1", "2", "999", "3"}, ll.toArray());
     }
@@ -102,24 +102,24 @@ class LinkedListTest {
     @Test
     void addAll() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Vector vector = new Vector();
-        vector.add("900");
-        vector.add("1000");
+        assertTrue(vector.add("900"));
+        assertTrue(vector.add("1000"));
 
-        ll.addAll(1, vector);
+        assertTrue(ll.addAll(1, vector));
         assertArrayEquals(new Object[]{"1", "900", "1000", "2", "3"}, ll.toArray());
     }
 
     @Test
     void get() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertEquals("2", ll.get(1));
     }
@@ -127,9 +127,9 @@ class LinkedListTest {
     @Test
     void set() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Object result = ll.set(1, "999");
 
@@ -140,14 +140,14 @@ class LinkedListTest {
     @Test
     void remove() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
-        ll.offerLast("4");
-        ll.offerLast("5");
-        ll.offerLast("6");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
+        assertTrue(ll.offerLast("4"));
+        assertTrue(ll.offerLast("5"));
+        assertTrue(ll.offerLast("6"));
 
-        ll.remove(2);
+        assertEquals("3",ll.remove(2));
 
         assertArrayEquals(new Object[]{"1", "2", "4", "5", "6"}, ll.toArray());
     }
@@ -155,9 +155,9 @@ class LinkedListTest {
     @Test
     void size() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertEquals(3, ll.size());
     }
@@ -167,9 +167,9 @@ class LinkedListTest {
         LinkedList ll = new LinkedList();
         assertTrue(ll.isEmpty());
 
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertFalse(ll.isEmpty());
     }
@@ -177,11 +177,11 @@ class LinkedListTest {
     @Test
     void testAdd() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
-        ll.add("999");
+        assertTrue(ll.add("999"));
 
         assertArrayEquals(new Object[]{"1", "2", "3", "999"}, ll.toArray());
     }
@@ -189,24 +189,24 @@ class LinkedListTest {
     @Test
     void testAddAll() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Vector vector = new Vector();
-        vector.add("900");
-        vector.add("1000");
+        assertTrue(vector.add("900"));
+        assertTrue(vector.add("1000"));
 
-        ll.addAll(vector);
+        assertTrue(ll.addAll(vector));
         assertArrayEquals(new Object[]{"1", "2", "3", "900", "1000"}, ll.toArray());
     }
 
     @Test
     void contains() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertTrue(ll.contains("2"));
     }
@@ -214,20 +214,20 @@ class LinkedListTest {
     @Test
     void containsAll() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         Vector vector = new Vector();
-        vector.add("1");
-        vector.add("2");
+        assertTrue(vector.add("1"));
+        assertTrue(vector.add("2"));
 
         assertTrue(ll.containsAll(vector));
 
         vector = new Vector();
-        vector.add("1");
-        vector.add("2");
-        vector.add("10");
+        assertTrue(vector.add("1"));
+        assertTrue(vector.add("2"));
+        assertTrue(vector.add("10"));
 
         assertFalse(ll.containsAll(vector));
     }
@@ -235,9 +235,9 @@ class LinkedListTest {
     @Test
     void testRemove() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         boolean result = ll.remove("2");
 
@@ -248,17 +248,17 @@ class LinkedListTest {
     @Test
     void removeAll() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
-        ll.offerLast("4");
-        ll.offerLast("5");
-        ll.offerLast("6");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
+        assertTrue(ll.offerLast("4"));
+        assertTrue(ll.offerLast("5"));
+        assertTrue(ll.offerLast("6"));
 
         Vector vector = new Vector();
-        vector.add("1");
-        vector.add("3");
-        vector.add("5");
+        assertTrue(vector.add("1"));
+        assertTrue(vector.add("3"));
+        assertTrue(vector.add("5"));
 
         boolean result = ll.removeAll(vector);
 
@@ -269,9 +269,9 @@ class LinkedListTest {
     @Test
     void toStringTest() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertEquals("size = 3 | elems: 1  2  3  ", ll.toString());
     }
@@ -279,9 +279,9 @@ class LinkedListTest {
     @Test
     void clear() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         ll.clear();
 
@@ -292,9 +292,9 @@ class LinkedListTest {
     @Test
     void toArray() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         assertArrayEquals(new Object[]{"1", "2", "3"}, ll.toArray());
     }
@@ -302,9 +302,9 @@ class LinkedListTest {
     @Test
     void iterator() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
 
         int i = 1;
         for (Object x : ll) {
@@ -316,12 +316,12 @@ class LinkedListTest {
     @Test
     void iteratorRemove() {
         LinkedList ll = new LinkedList();
-        ll.offerLast("1");
-        ll.offerLast("2");
-        ll.offerLast("3");
-        ll.offerLast("4");
-        ll.offerLast("5");
-        ll.offerLast("6");
+        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerLast("2"));
+        assertTrue(ll.offerLast("3"));
+        assertTrue(ll.offerLast("4"));
+        assertTrue(ll.offerLast("5"));
+        assertTrue(ll.offerLast("6"));
 
         Iterator itr = ll.iterator();
         while (itr.hasNext()) {

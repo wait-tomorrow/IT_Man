@@ -205,8 +205,8 @@ public class LinkedList implements List {
 
     @Override
     public boolean contains(Object o) {
-        for(Object x : this){
-            if(Objects.equals(x,o)){
+        for (Object x : this) {
+            if (Objects.equals(x, o)) {
                 return true;
             }
         }
@@ -216,8 +216,8 @@ public class LinkedList implements List {
 
     @Override
     public boolean containsAll(Collection collection) {
-        for (Object x : collection){
-            if(!contains(x)){
+        for (Object x : collection) {
+            if (!contains(x)) {
                 return false;
             }
         }
@@ -242,13 +242,14 @@ public class LinkedList implements List {
 
     @Override
     public String toString() {
-        String result = "size = " + size() + " | elems: ";
+        StringBuilder sb = new StringBuilder();
+        sb.append("size = ").append(size()).append(" | elems: ");
 
         for (Object x : this) {
-            result = result + x + "  ";
+            sb.append(x).append("  ");
         }
 
-        return result;
+        return sb.toString();
     }
 
     @Override
