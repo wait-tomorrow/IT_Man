@@ -62,8 +62,10 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public Object set(int index, Object o) {
+        Object oldElem = list[index];
         list[index] = o;
-        return true;
+
+        return oldElem;
     }
 
     @Override
@@ -151,9 +153,10 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public Object[] toArray() {
-        Object[] copy = new Object[list.length];
+        int arrSize = size();
+        Object[] copy = new Object[arrSize];
 
-        for (int i = 0; i < list.length; i++) {
+        for (int i = 0; i < arrSize; i++) {
             copy[i] = list[i];
         }
 
@@ -173,7 +176,7 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public Iterator iterator() {
-        return new vectorIterator();
+        return new VectorIterator();
     }
 
     private void resize(int addCapacity) {
@@ -192,6 +195,18 @@ public class Vector implements List, RandomAccess {
         }
 
         this.list = newList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("size = " + size() + " | ");
+
+        for (int i = 0; i < size(); i++) {
+            sb.append("[" + list[i] + "] ");
+        }
+
+        return sb.toString();
     }
 
     private void resize() {
@@ -226,21 +241,27 @@ public class Vector implements List, RandomAccess {
         return true;
     }
 
-    private class vectorIterator implements Iterator {
+    private class VectorIterator implements Iterator {
         private int currentElem;
 
-        public vectorIterator() {
-            currentElem = 0;
+        public VectorIterator() {
+            currentElem = -1;
         }
 
         @Override
         public boolean hasNext() {
-            return currentElem + 1 <= countElements;
+            return currentElem + 1 < countElements;
         }
 
         @Override
         public Object next() {
-            return list[currentElem++];
+            return list[++currentElem];
+        }
+
+        @Override
+        public void remove() {
+            Vector.this.remove(currentElem);
+            currentElem--;
         }
     }
 }

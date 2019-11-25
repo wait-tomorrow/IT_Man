@@ -2,6 +2,9 @@ package by.ITMan.homework.Lesson5;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class VectorTest {
@@ -33,92 +36,63 @@ class VectorTest {
     void set() {
         Vector testVector = createVector();
 
-        testVector.set(1, "999");
+        assertEquals("2", testVector.set(1, "999"));
 
-        assertArrayEquals(new Object[]{"1", "999", "3", "4", "5", null, null, null, null, null}, testVector.toArray());
+        assertArrayEquals(new Object[]{"1", "999", "3", "4", "5"}, testVector.toArray());
     }
 
     @Test
     void add() {
-        Vector v1 = new Vector();
-        Vector v2 = new Vector();
+        Vector vector = createVector();
 
-        v1.add("1");
-        v2.add("1");
+        assertTrue(vector.add("999"));
 
-        assertEquals(v1, v2);
+        assertArrayEquals(new Object[]{"1", "2", "3", "4", "5", "999"}, vector.toArray());
     }
 
     @Test
     void addAll() {
-        Vector v1 = createVector();
-        Vector v2 = new Vector();
-        Vector v3 = new Vector();
+        Vector vector = createVector();
+        Vector addElems = new Vector();
 
-        v2.add("1");
-        v2.add("1");
-        v2.add("10");
-        v2.add("8");
+        assertTrue(addElems.add("1"));
+        assertTrue(addElems.add("1"));
+        assertTrue(addElems.add("10"));
+        assertTrue(addElems.add("8"));
 
-        v1.addAll(5, v2);
+        assertTrue(vector.addAll(2, addElems));
 
-        v3.add("1");
-        v3.add("2");
-        v3.add("3");
-        v3.add("4");
-        v3.add("5");
-        v3.add("1");
-        v3.add("1");
-        v3.add("10");
-        v3.add("8");
-        assertEquals(v1, v3);
+        assertArrayEquals(new Object[]{"1", "2", "1", "1", "10", "8", "3", "4", "5"}, vector.toArray());
     }
 
     @Test
     void addAllColection() {
-        Vector v1 = createVector();
-        Vector v2 = new Vector();
-        Vector v3 = new Vector();
+        Vector vector = createVector();
+        Vector addElems = new Vector();
 
-        v2.add("1");
-        v2.add("1");
-        v2.add("10");
-        v2.add("8");
+        assertTrue(addElems.add("1"));
+        assertTrue(addElems.add("1"));
+        assertTrue(addElems.add("10"));
+        assertTrue(addElems.add("8"));
 
-        v1.addAll(v2);
+        assertTrue(vector.addAll(addElems));
 
-        v3.add("1");
-        v3.add("2");
-        v3.add("3");
-        v3.add("4");
-        v3.add("5");
-        v3.add("1");
-        v3.add("1");
-        v3.add("10");
-        v3.add("8");
-        assertEquals(v1, v3);
+        assertArrayEquals(new Object[]{"1", "2", "3", "4", "5", "1", "1", "10", "8"}, vector.toArray());
     }
 
     @Test
     void remove() {
         Vector vector = createVector();
-        vector.remove(1);
+        assertEquals("2", vector.remove(1));
 
-        Vector expectedVector = new Vector();
-
-        expectedVector.add("1");
-        expectedVector.add("3");
-        expectedVector.add("4");
-        expectedVector.add("5");
-
-        assertEquals(expectedVector, vector);
+        assertArrayEquals(new Object[]{"1", "3", "4", "5"}, vector.toArray());
     }
 
     @Test
     void size() {
         Vector vector = new Vector();
-        vector.add("2");
-        vector.add("3");
+        assertTrue(vector.add("2"));
+        assertTrue(vector.add("3"));
 
         assertEquals(2, vector.size());
     }
@@ -143,14 +117,14 @@ class VectorTest {
         Vector vector = createVector();
 
         Vector v2 = new Vector();
-        v2.add("2");
-        v2.add("4");
-        v2.add("5");
+        assertTrue(v2.add("2"));
+        assertTrue(v2.add("4"));
+        assertTrue(v2.add("5"));
 
         Vector v3 = new Vector();
-        v3.add("2");
-        v3.add("10");
-        v3.add("5");
+        assertTrue(v3.add("2"));
+        assertTrue(v3.add("10"));
+        assertTrue(v3.add("5"));
 
         assertTrue(vector.containsAll(v2));
         assertFalse(vector.containsAll(v3));
@@ -159,31 +133,9 @@ class VectorTest {
     @Test
     void testRemove() {
         Vector vector = createVector();
-        vector.remove("4");
+        assertTrue(vector.remove("4"));
 
-        Vector expectedVector = new Vector();
-
-        expectedVector.add("1");
-        expectedVector.add("2");
-        expectedVector.add("3");
-        expectedVector.add("5");
-
-        assertEquals(expectedVector, vector);
-
-        ///////////////////
-
-        vector = createVector();
-        vector.remove("10");
-
-        expectedVector = new Vector();
-
-        expectedVector.add("1");
-        expectedVector.add("2");
-        expectedVector.add("3");
-        expectedVector.add("4");
-        expectedVector.add("5");
-
-        assertEquals(expectedVector, vector);
+        assertArrayEquals(new Object[]{"1", "2", "3", "5"}, vector.toArray());
     }
 
     @Test
@@ -191,16 +143,43 @@ class VectorTest {
         Vector vector = createVector();
 
         Vector vectorForRemove = new Vector();
-        vectorForRemove.add("2");
-        vectorForRemove.add("4");
+        assertTrue(vectorForRemove.add("2"));
+        assertTrue(vectorForRemove.add("4"));
 
-        vector.removeAll(vectorForRemove);
+        assertTrue(vector.removeAll(vectorForRemove));
 
-        Vector expectedVector = new Vector();
-        expectedVector.add("1");
-        expectedVector.add("3");
-        expectedVector.add("5");
+        assertArrayEquals(new Object[]{"1", "3", "5"}, vector.toArray());
+    }
 
-        assertEquals(expectedVector, vector);
+    @Test
+    void testIterator() {
+        Vector vector = createVector();
+
+        int i = 1;
+        for (Object x : vector) {
+            assertEquals(i + "", x);
+            i++;
+        }
+    }
+
+    @Test
+    void testIteratorRemove() {
+        Vector vector = createVector();
+        Iterator itr = vector.iterator();
+
+        while (itr.hasNext()) {
+            if (Objects.equals(itr.next(), "3")) {
+                itr.remove();
+            }
+        }
+        
+        assertArrayEquals(new Object[]{"1", "2", "4", "5"}, vector.toArray());
+    }
+
+    @Test
+    void testToString() {
+        Vector vector = createVector();
+
+        assertEquals("size = 5 | [1] [2] [3] [4] [5] ", vector.toString());
     }
 }
