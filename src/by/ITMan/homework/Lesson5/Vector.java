@@ -200,10 +200,10 @@ public class Vector implements List, RandomAccess {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("size = " + size() + " | ");
+        sb.append("size = ").append(size()).append(" | ");
 
         for (int i = 0; i < size(); i++) {
-            sb.append("[" + list[i] + "] ");
+            sb.append("[").append(list[i]).append("] ");
         }
 
         return sb.toString();
