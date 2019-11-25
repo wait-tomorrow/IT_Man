@@ -172,7 +172,7 @@ class VectorTest {
                 itr.remove();
             }
         }
-        
+
         assertArrayEquals(new Object[]{"1", "2", "4", "5"}, vector.toArray());
     }
 
@@ -181,5 +181,25 @@ class VectorTest {
         Vector vector = createVector();
 
         assertEquals("size = 5 | [1] [2] [3] [4] [5] ", vector.toString());
+    }
+
+    @Test
+    void testEquals() {
+        Vector v1 = new Vector();
+        assertTrue(v1.add("1"));
+        assertTrue(v1.add("2"));
+        assertTrue(v1.add("3"));
+
+        Vector v2 = new Vector();
+        assertTrue(v2.add("1"));
+        assertTrue(v2.add("2"));
+        assertTrue(v2.add("3"));
+
+        assertArrayEquals(new Object[]{"1", "2", "3"}, v1.toArray());
+        assertArrayEquals(new Object[]{"1", "2", "3"}, v2.toArray());
+        assertEquals(v1, v2);
+
+        assertTrue(v2.remove("3"));
+        assertNotEquals(v1, v2);
     }
 }
