@@ -285,7 +285,7 @@ class LinkedListTest {
 
         ll.clear();
 
-        assertEquals("size = 0 | elems: ", ll.toString());
+        assertArrayEquals(new Object[0], ll.toArray());
         assertEquals(0, ll.size());
     }
 
