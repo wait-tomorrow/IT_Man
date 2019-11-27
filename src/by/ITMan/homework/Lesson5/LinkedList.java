@@ -3,7 +3,7 @@ package by.ITMan.homework.Lesson5;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class LinkedList implements List {
+public class LinkedList<T> implements List<T> {
     private Node firstNode;
     private Node lastNode;
     private int size = 0;
@@ -12,11 +12,11 @@ public class LinkedList implements List {
     }
 
     private class Node {
-        private Object currentElem;
+        private T currentElem;
         private Node nextNode;
         private Node prevNode;
 
-        private Node(Object currentElem, Node prevElem, Node nextElem) {
+        private Node(T currentElem, Node prevElem, Node nextElem) {
             this.currentElem = currentElem;
             this.prevNode = prevElem;
             this.nextNode = nextElem;
@@ -38,24 +38,24 @@ public class LinkedList implements List {
             this.prevNode = prevNode;
         }
 
-        public Object getCurrentNodeContent() {
+        public T getCurrentNodeContent() {
             return currentElem;
         }
 
-        public void setCurrentNodeContent(Object currentElem) {
+        public void setCurrentNodeContent(T currentElem) {
             this.currentElem = currentElem;
         }
     }
 
-    Object getFirst() {
+    T getFirst() {
         return firstNode.getCurrentNodeContent();
     }
 
-    Object getLast() {
+    T getLast() {
         return lastNode.getCurrentNodeContent();
     }
 
-    boolean offerFirst(Object o) {
+    boolean offerFirst(T o) {
         Node newNode = new Node(o, null, firstNode);
 
         if (firstNode == null) {
@@ -70,7 +70,7 @@ public class LinkedList implements List {
         return true;
     }
 
-    boolean offerLast(Object o) {
+    boolean offerLast(T o) {
         Node newNode = new Node(o, lastNode, null);
 
         if (lastNode == null) {
@@ -85,7 +85,7 @@ public class LinkedList implements List {
         return true;
     }
 
-    Object pollFirst() {
+    T pollFirst() {
         Node result = firstNode;
 
         firstNode = result.nextNode;
@@ -95,7 +95,7 @@ public class LinkedList implements List {
         return result.getCurrentNodeContent();
     }
 
-    Object pollLast() {
+    T pollLast() {
         Node result = lastNode;
 
         lastNode = result.prevNode;
@@ -115,7 +115,7 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean add(int index, Object o) {
+    public boolean add(int index, T o) {
         Node elem = findElemByIndex(index);
 
         Node newNode = new Node(o, elem.prevNode, elem);
@@ -133,10 +133,10 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean addAll(int index, Collection collection) {
+    public boolean addAll(int index, Collection<T> collection) {
         int i = 0;
 
-        for (Object x : collection) {
+        for (T x : collection) {
             add(index + i, x);
             i++;
         }
@@ -145,12 +145,12 @@ public class LinkedList implements List {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         return findElemByIndex(index).getCurrentNodeContent();
     }
 
     @Override
-    public Object set(int index, Object o) {
+    public T set(int index, T o) {
         Node oldElem = findElemByIndex(index);
         Node newElem = new Node(o, oldElem.prevNode, oldElem.nextNode);
 
@@ -161,22 +161,24 @@ public class LinkedList implements List {
     }
 
     @Override
-    public Object remove(int index) {
-        Iterator itr = this.iterator();
+    public T remove(int index) {
+        T result = null;
+        Iterator<T> itr = iterator();
 
         int i = 0;
-        Object deletedElem;
+        T deletedElem;
         while (itr.hasNext()) {
             deletedElem = itr.next();
 
             if (i == index) {
                 itr.remove();
-                return deletedElem;
+                result = deletedElem;
+                break;
             }
             i++;
         }
 
-        return null;
+        return result;
     }
 
     @Override
@@ -190,13 +192,13 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean add(Object o) {
+    public boolean add(T o) {
         return offerLast(o);
     }
 
     @Override
-    public boolean addAll(Collection collection) {
-        for (Object o : collection) {
+    public boolean addAll(Collection<T> collection) {
+        for (T o : collection) {
             offerLast(o);
         }
 
@@ -204,8 +206,8 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean contains(Object o) {
-        for (Object x : this) {
+    public boolean contains(T o) {
+        for (T x : this) {
             if (Objects.equals(x, o)) {
                 return true;
             }
@@ -215,8 +217,8 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean containsAll(Collection collection) {
-        for (Object x : collection) {
+    public boolean containsAll(Collection<T> collection) {
+        for (T x : collection) {
             if (!contains(x)) {
                 return false;
             }
@@ -226,7 +228,7 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(T o) {
         Iterator itr = iterator();
 
         while (itr.hasNext()) {
@@ -245,7 +247,7 @@ public class LinkedList implements List {
         StringBuilder sb = new StringBuilder();
         sb.append("size = ").append(size()).append(" | elems: ");
 
-        for (Object x : this) {
+        for (T x : this) {
             sb.append(x).append("  ");
         }
 
@@ -253,10 +255,10 @@ public class LinkedList implements List {
     }
 
     @Override
-    public boolean removeAll(Collection collection) {
+    public boolean removeAll(Collection<T> collection) {
         boolean result = false;
 
-        for (Object x : collection) {
+        for (T x : collection) {
             System.out.println(x);
             if (remove(x)) {
                 result = true;
@@ -274,11 +276,11 @@ public class LinkedList implements List {
     }
 
     @Override
-    public Object[] toArray() {
-        Object[] arr = new Object[size()];
+    public T[] toArray() {
+        T[] arr = (T[]) new Object[size()];
 
         int index = 0;
-        for (Object x : this) {
+        for (T x : this) {
             arr[index++] = x;
         }
 
@@ -290,7 +292,7 @@ public class LinkedList implements List {
         return new LinkedListIterator();
     }
 
-    private class LinkedListIterator implements Iterator {
+    private class LinkedListIterator implements Iterator<T> {
         private Node currentElem;
         private Node prevElem;
         private int index = 0;
@@ -305,7 +307,7 @@ public class LinkedList implements List {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             prevElem = currentElem;
             currentElem = currentElem.nextNode;
             index++;

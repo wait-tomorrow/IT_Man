@@ -1,13 +1,13 @@
 package by.ITMan.homework.Lesson5;
 
-public interface List extends Collection {
-    boolean add(int index, Object o);
+public interface List<T> extends Collection<T> {
+    boolean add(int index, T o);
 
-    boolean addAll(int index, Collection collection);
+    boolean addAll(int index, Collection<T> collection);
 
-    Object get(int index);
+    T get(int index);
 
-    Object set(int index, Object o);
+    T set(int index, T o);
 
-    Object remove(int index);
+    T remove(int index);
 }

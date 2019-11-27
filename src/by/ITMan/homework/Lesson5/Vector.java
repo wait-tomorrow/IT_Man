@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.RandomAccess;
 
-public class Vector implements List, RandomAccess {
-    private Object[] list;
+public class Vector<T> implements List<T>, RandomAccess {
+    private T[] list;
     private int countElements;
 
     public Vector() {
@@ -13,12 +13,12 @@ public class Vector implements List, RandomAccess {
     }
 
     public Vector(int initialSize) {
-        list = new Object[initialSize];
+        list = (T[]) new Object[initialSize];
         countElements = 0;
     }
 
     @Override
-    public boolean add(int index, Object o) {
+    public boolean add(int index, T o) {
         if (index < 0 || index > countElements) {
             return false;
         }
@@ -37,7 +37,7 @@ public class Vector implements List, RandomAccess {
     }
 
     @Override
-    public boolean addAll(int index, Collection collection) {
+    public boolean addAll(int index, Collection<T> collection) {
         if (collection.size() == 0) {
             return false;
         }
@@ -47,7 +47,7 @@ public class Vector implements List, RandomAccess {
         }
 
         int i = 0;
-        for (Object o : collection) {
+        for (T o : collection) {
             add(index + i, o);
             i++;
         }
@@ -56,21 +56,21 @@ public class Vector implements List, RandomAccess {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         return list[index];
     }
 
     @Override
-    public Object set(int index, Object o) {
-        Object oldElem = list[index];
+    public T set(int index, T o) {
+        T oldElem = list[index];
         list[index] = o;
 
         return oldElem;
     }
 
     @Override
-    public Object remove(int index) {
-        Object deletedElem = list[index];
+    public T remove(int index) {
+        T deletedElem = list[index];
 
         countElements--;
         for (int i = index; i < countElements; i++) {
@@ -95,23 +95,23 @@ public class Vector implements List, RandomAccess {
 
     //====Collection
     @Override
-    public boolean add(Object o) {
+    public boolean add(T o) {
         return add(countElements, o);
     }
 
     @Override
-    public boolean addAll(Collection collection) {
+    public boolean addAll(Collection<T> collection) {
         return addAll(countElements, collection);
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(T o) {
         return findElem(o) != -1;
     }
 
     @Override
-    public boolean containsAll(Collection collection) {
-        for (Object o : collection) {
+    public boolean containsAll(Collection<T> collection) {
+        for (T o : collection) {
             if (!contains(o)) {
                 return false;
             }
@@ -121,7 +121,7 @@ public class Vector implements List, RandomAccess {
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(T o) {
         int elemIndex = findElem(o);
 
         if (elemIndex != -1) {
@@ -133,10 +133,10 @@ public class Vector implements List, RandomAccess {
     }
 
     @Override
-    public boolean removeAll(Collection collection) {
+    public boolean removeAll(Collection<T> collection) {
         boolean isVectorChanged = false;
 
-        for (Object o : collection) {
+        for (T o : collection) {
             if (remove(o)) {
                 isVectorChanged = true;
             }
@@ -147,14 +147,15 @@ public class Vector implements List, RandomAccess {
 
     @Override
     public void clear() {
+        countElements = 0;
         int size = list.length;
-        list = new Object[size];
+        list = (T[]) new Object[size];
     }
 
     @Override
-    public Object[] toArray() {
+    public T[] toArray() {
         int arrSize = size();
-        Object[] copy = new Object[arrSize];
+        T[] copy = (T[]) new Object[arrSize];
 
         for (int i = 0; i < arrSize; i++) {
             copy[i] = list[i];
@@ -164,7 +165,7 @@ public class Vector implements List, RandomAccess {
     }
 
     //return element index
-    private int findElem(Object o) {
+    private int findElem(T o) {
         for (int i = 0; i < size(); i++) {
             if (Objects.equals(list[i], o)) {
                 return i;
@@ -188,7 +189,7 @@ public class Vector implements List, RandomAccess {
             newCapacity = list.length * 2;
         }
 
-        Object[] newList = new Object[newCapacity];
+        T[] newList = (T[]) new Object[newCapacity];
 
         for (int i = 0; i < list.length; i++) {
             newList[i] = list[i];
@@ -254,7 +255,7 @@ public class Vector implements List, RandomAccess {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             return list[++currentElem];
         }
 
