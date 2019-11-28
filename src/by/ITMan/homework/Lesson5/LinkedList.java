@@ -158,7 +158,7 @@ public class LinkedList<T> implements List<T> {
         return oldElem.getCurrentNodeContent();
     }
 
-    public void setNode(Node oldElem, T o) {
+    private void setNode(Node oldElem, T o) {
         Node newElem = new Node(o, oldElem.prevNode, oldElem.nextNode);
 
         oldElem.prevNode.nextNode = newElem;
