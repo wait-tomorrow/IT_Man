@@ -152,18 +152,28 @@ public class LinkedList<T> implements List<T> {
     @Override
     public T set(int index, T o) {
         Node oldElem = findElemByIndex(index);
+
+        setNode(oldElem, o);
+
+        return oldElem.getCurrentNodeContent();
+    }
+
+    public void setNode(Node oldElem, T o) {
         Node newElem = new Node(o, oldElem.prevNode, oldElem.nextNode);
 
         oldElem.prevNode.nextNode = newElem;
         oldElem.nextNode.prevNode = newElem;
-
-        return oldElem.getCurrentNodeContent();
     }
 
     @Override
     public T remove(int index) {
         Node currentElem = findElemByIndex(index);
+        removeNode(currentElem);
 
+        return currentElem.getCurrentNodeContent();
+    }
+
+    private void removeNode(Node currentElem) {
         if (currentElem.prevNode == null) {
             firstNode = currentElem.nextNode;
             firstNode.prevNode = null;
@@ -175,8 +185,6 @@ public class LinkedList<T> implements List<T> {
             currentElem.prevNode.nextNode = currentElem.nextNode;
         }
         size--;
-
-        return currentElem.getCurrentNodeContent();
     }
 
     @Override
@@ -315,7 +323,46 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public ListIterator<T> iterator() {
-        return new ListIterator<>(this);
+    public ListIterator iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements ListIterator<T> {
+        private Node currentElem;
+        private Node prevElem;
+        private int index = 0;
+
+        public LinkedListIterator() {
+            currentElem = firstNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public T next() {
+            prevElem = currentElem;
+            currentElem = currentElem.nextNode;
+            index++;
+
+            return prevElem.getCurrentNodeContent();
+        }
+
+        @Override
+        public void remove() {
+            Node node = prevElem;
+
+            LinkedList.this.removeNode(node);
+
+            index--;
+            currentElem = node.nextNode;
+        }
+
+        @Override
+        public void set(T o) {
+            LinkedList.this.setNode(prevElem, o);
+        }
     }
 }

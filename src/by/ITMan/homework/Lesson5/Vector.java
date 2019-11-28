@@ -204,11 +204,6 @@ public class Vector<T> implements List<T>, RandomAccess {
         return -1;
     }
 
-    @Override
-    public ListIterator<T> iterator() {
-        return new ListIterator<>(this);
-    }
-
     private void resize(int addCapacity) {
         int newCapacity;
 
@@ -267,5 +262,43 @@ public class Vector<T> implements List<T>, RandomAccess {
         }
 
         return true;
+    }
+
+    @Override
+    public ListIterator iterator() {
+        return new VectorIterator();
+    }
+
+    class VectorIterator implements ListIterator<T> {
+        private int index;
+
+        public VectorIterator() {
+            this.index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index + 1 < size();
+        }
+
+        @Override
+        public T next() {
+            index++;
+            return get(index);
+        }
+
+        @Override
+        public void remove() {
+            if (index == -1) {
+                throw new IllegalStateException();
+            }
+
+            Vector.this.remove(index);
+            index--;
+        }
+
+        public void set(T o) {
+            Vector.this.set(index, o);
+        }
     }
 }

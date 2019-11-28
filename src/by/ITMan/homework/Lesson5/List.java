@@ -15,5 +15,7 @@ public interface List<T> extends Collection<T> {
 
     ListIterator iterator();
 
-    //void sort(Comparator comp);
+    default void sort(Comparator comp){
+
+    };
 }
