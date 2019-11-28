@@ -1,5 +1,7 @@
 package by.ITMan.homework.Lesson5;
 
+import java.util.Comparator;
+
 public interface List<T> extends Collection<T> {
     boolean add(int index, T o);
 
@@ -10,4 +12,8 @@ public interface List<T> extends Collection<T> {
     T set(int index, T o);
 
     T remove(int index);
+
+    ListIterator iterator();
+
+    //void sort(Comparator comp);
 }

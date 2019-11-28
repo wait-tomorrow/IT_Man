@@ -2,6 +2,9 @@ package by.ITMan.homework.Lesson5;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractListTest extends AbstractCollectionTest {
@@ -79,5 +82,107 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         assertEquals("2", list.remove(1));
 
         assertArrayEquals(new Object[]{"1", "3", "4", "5"}, list.toArray());
+    }
+
+    @Test
+    void listIterator() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+
+        int i = 1;
+        for (Object x : ll) {
+            assertEquals(i + "", x);
+            i++;
+        }
+    }
+
+    @Test
+    void listIteratorRemove() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+        assertTrue(ll.add("4"));
+        assertTrue(ll.add("5"));
+        assertTrue(ll.add("6"));
+
+        Iterator itr = ll.iterator();
+        while (itr.hasNext()) {
+            Object temp = itr.next();
+
+            if (Objects.equals(temp, "4")) {
+                itr.remove();
+            }
+        }
+
+        assertArrayEquals(new Object[]{"1", "2", "3", "5", "6"}, ll.toArray());
+    }
+
+    @Test
+    void listIteratorRemoveFirst() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+        assertTrue(ll.add("4"));
+        assertTrue(ll.add("5"));
+        assertTrue(ll.add("6"));
+
+        Iterator itr = ll.iterator();
+        while (itr.hasNext()) {
+            Object temp = itr.next();
+
+            if (Objects.equals(temp, "1")) {
+                itr.remove();
+            }
+        }
+
+        assertArrayEquals(new Object[]{"2", "3", "4", "5", "6"}, ll.toArray());
+    }
+
+    @Test
+    void listIteratorRemoveLast() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+        assertTrue(ll.add("4"));
+        assertTrue(ll.add("5"));
+        assertTrue(ll.add("6"));
+
+        Iterator itr = ll.iterator();
+        while (itr.hasNext()) {
+            Object temp = itr.next();
+
+            if (Objects.equals(temp, "6")) {
+                itr.remove();
+            }
+        }
+
+        assertArrayEquals(new Object[]{"1", "2", "3", "4", "5"}, ll.toArray());
+    }
+
+    @Test
+    void listIteratorRemoveMany() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+        assertTrue(ll.add("4"));
+        assertTrue(ll.add("5"));
+        assertTrue(ll.add("6"));
+
+        Iterator itr = ll.iterator();
+        while (itr.hasNext()) {
+            Object temp = itr.next();
+
+            if (!Objects.equals(temp, "1") && !Objects.equals(temp, "6")) {
+                itr.remove();
+            }
+        }
+
+        assertArrayEquals(new Object[]{"1", "6"}, ll.toArray());
     }
 }

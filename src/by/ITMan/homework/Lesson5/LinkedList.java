@@ -162,23 +162,21 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        T result = null;
-        Iterator<T> itr = iterator();
+        Node currentElem = findElemByIndex(index);
 
-        int i = 0;
-        T deletedElem;
-        while (itr.hasNext()) {
-            deletedElem = itr.next();
-
-            if (i == index) {
-                itr.remove();
-                result = deletedElem;
-                break;
-            }
-            i++;
+        if (currentElem.prevNode == null) {
+            firstNode = currentElem.nextNode;
+            firstNode.prevNode = null;
+        } else if (currentElem.nextNode == null) {
+            lastNode = currentElem.prevNode;
+            lastNode.nextNode = null;
+        } else {
+            currentElem.nextNode.prevNode = currentElem.prevNode;
+            currentElem.prevNode.nextNode = currentElem.nextNode;
         }
+        size--;
 
-        return result;
+        return currentElem.getCurrentNodeContent();
     }
 
     @Override
@@ -255,6 +253,35 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        LinkedList list2 = (LinkedList) obj;
+
+        if (size() != list2.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < size(); i++) {
+            if (!Objects.equals(get(i), list2.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean removeAll(Collection<T> collection) {
         boolean result = false;
 
@@ -288,51 +315,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public Iterator iterator() {
-        return new LinkedListIterator();
-    }
-
-    private class LinkedListIterator implements Iterator<T> {
-        private Node currentElem;
-        private Node prevElem;
-        private int index = 0;
-
-        public LinkedListIterator() {
-            currentElem = firstNode;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return index < size();
-        }
-
-        @Override
-        public T next() {
-            prevElem = currentElem;
-            currentElem = currentElem.nextNode;
-            index++;
-
-            return prevElem.getCurrentNodeContent();
-        }
-
-        @Override
-        public void remove() {
-            Node node = prevElem;
-
-            if (node.prevNode == null) {
-                firstNode = node.nextNode;
-                firstNode.prevNode = null;
-            } else if (node.nextNode == null) {
-                lastNode = node.prevNode;
-                lastNode.nextNode = null;
-            } else {
-                node.nextNode.prevNode = node.prevNode;
-                node.prevNode.nextNode = node.nextNode;
-            }
-
-            size--;
-            index--;
-            currentElem = node.nextNode;
-        }
+    public ListIterator<T> iterator() {
+        return new ListIterator<>(this);
     }
 }

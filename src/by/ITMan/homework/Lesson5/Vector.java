@@ -1,6 +1,5 @@
 package by.ITMan.homework.Lesson5;
 
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.RandomAccess;
 
@@ -8,7 +7,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     private T[] list;
     private int countElements;
 
-    public Vector() {
+    Vector() {
         this(10);
     }
 
@@ -17,18 +16,34 @@ public class Vector<T> implements List<T>, RandomAccess {
         countElements = 0;
     }
 
+    private boolean isIndexNotValidForAdd(int index) {
+        if (index < 0 || index > countElements) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isIndexNotValidForGetOrRemove(int index) {
+        if (index < 0 || index >= countElements) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public boolean add(int index, T o) {
-        if (index < 0 || index > countElements) {
-            return false;
+        if (isIndexNotValidForAdd(index)) {
+            throw new IndexOutOfBoundsException();
         }
 
         if (countElements == list.length) {
             resize();
         }
 
-        for (int i = countElements - 1; i >= index; i--) {
-            list[i + 1] = list[i];
+        if (countElements - index >= 0) {
+            System.arraycopy(list, index, list, index + 1, countElements - index);
         }
         list[index] = o;
         countElements++;
@@ -38,6 +53,10 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public boolean addAll(int index, Collection<T> collection) {
+        if (isIndexNotValidForAdd(index)) {
+            throw new IndexOutOfBoundsException();
+        }
+
         if (collection.size() == 0) {
             return false;
         }
@@ -57,11 +76,19 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public T get(int index) {
+        if (isIndexNotValidForGetOrRemove(index)) {
+            throw new IndexOutOfBoundsException();
+        }
+
         return list[index];
     }
 
     @Override
     public T set(int index, T o) {
+        if (isIndexNotValidForGetOrRemove(index)) {
+            throw new IndexOutOfBoundsException();
+        }
+
         T oldElem = list[index];
         list[index] = o;
 
@@ -70,11 +97,15 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public T remove(int index) {
+        if (isIndexNotValidForGetOrRemove(index)) {
+            throw new IndexOutOfBoundsException();
+        }
+
         T deletedElem = list[index];
 
         countElements--;
-        for (int i = index; i < countElements; i++) {
-            list[i] = list[i + 1];
+        if (countElements - index >= 0) {
+            System.arraycopy(list, index + 1, list, index, countElements - index);
         }
 
         //delete last elem
@@ -157,9 +188,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         int arrSize = size();
         T[] copy = (T[]) new Object[arrSize];
 
-        for (int i = 0; i < arrSize; i++) {
-            copy[i] = list[i];
-        }
+        System.arraycopy(list, 0, copy, 0, arrSize);
 
         return copy;
     }
@@ -176,12 +205,12 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public Iterator iterator() {
-        return new VectorIterator();
+    public ListIterator<T> iterator() {
+        return new ListIterator<>(this);
     }
 
     private void resize(int addCapacity) {
-        int newCapacity = 0;
+        int newCapacity;
 
         if (addCapacity == 0) {
             newCapacity = list.length + addCapacity;
@@ -191,9 +220,7 @@ public class Vector<T> implements List<T>, RandomAccess {
 
         T[] newList = (T[]) new Object[newCapacity];
 
-        for (int i = 0; i < list.length; i++) {
-            newList[i] = list[i];
-        }
+        System.arraycopy(list, 0, newList, 0, list.length);
 
         this.list = newList;
     }
@@ -240,29 +267,5 @@ public class Vector<T> implements List<T>, RandomAccess {
         }
 
         return true;
-    }
-
-    private class VectorIterator implements Iterator {
-        private int currentElem;
-
-        public VectorIterator() {
-            currentElem = -1;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return currentElem + 1 < countElements;
-        }
-
-        @Override
-        public T next() {
-            return list[++currentElem];
-        }
-
-        @Override
-        public void remove() {
-            Vector.this.remove(currentElem);
-            currentElem--;
-        }
     }
 }
