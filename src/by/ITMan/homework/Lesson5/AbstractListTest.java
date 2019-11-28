@@ -4,23 +4,33 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-abstract public class AbstractListTest extends AbstractCollectionTest {
-    abstract <T> List<T> createCollection(Class<T> clazz);
+abstract class AbstractListTest extends AbstractCollectionTest {
+    abstract <T> List<T> createCollection();
 
     @Test
     void listAdd() {
-        List<String> list = createCollection(String.class);
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
 
         assertTrue(list.add(2, "999"));
 
-        assertArrayEquals(new Object[]{"1", "2", "3", "4", "5", "999"}, list.toArray());
+        assertArrayEquals(new Object[]{"1", "2", "999", "3", "4", "5"}, list.toArray());
     }
 
     @Test
     void listAddAll() {
-        List<String> list = createCollection(String.class);
-        List<String> addElems = new Vector();
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
 
+        List<String> addElems = createCollection();
         assertTrue(addElems.add("1"));
         assertTrue(addElems.add("1"));
         assertTrue(addElems.add("10"));
@@ -33,14 +43,24 @@ abstract public class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listGet() {
-        List<String> list = createCollection(String.class);
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
 
         assertEquals("1", list.get(0));
     }
 
     @Test
     void listSet() {
-        List list = createCollection(String.class);
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
 
         assertEquals("2", list.set(1, "999"));
 
@@ -49,7 +69,13 @@ abstract public class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listRemove() {
-        List<String> list = createCollection(String.class);
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
+
         assertEquals("2", list.remove(1));
 
         assertArrayEquals(new Object[]{"1", "3", "4", "5"}, list.toArray());

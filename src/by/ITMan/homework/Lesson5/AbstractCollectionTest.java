@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 abstract class AbstractCollectionTest {
-    abstract <T> Collection<T> createCollection(Class<T> clazz);
+    abstract <T> Collection<T> createCollection();
 
     @Test
     void collectionIsEmpty() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
 
         assertTrue(collection.isEmpty());
     }
 
     @Test
     void collectionAdd() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
         assertTrue(collection.add("1"));
         assertTrue(collection.add("2"));
         assertTrue(collection.add("3"));
@@ -31,8 +31,14 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionAddAll() {
-        Collection<String> collection = createCollection(String.class);
-        Collection<String> addElems = createCollection(String.class);
+        Collection<String> collection = createCollection();
+        assertTrue(collection.add("1"));
+        assertTrue(collection.add("2"));
+        assertTrue(collection.add("3"));
+        assertTrue(collection.add("4"));
+        assertTrue(collection.add("5"));
+
+        Collection<String> addElems = createCollection();
 
         assertTrue(addElems.add("1"));
         assertTrue(addElems.add("1"));
@@ -41,12 +47,17 @@ abstract class AbstractCollectionTest {
 
         assertTrue(collection.addAll(addElems));
 
-        assertArrayEquals(new Object[]{"1", "2", "1", "1", "10", "8", "3", "4", "5"}, collection.toArray());
+        assertArrayEquals(new Object[]{"1", "2", "3", "4", "5", "1", "1", "10", "8"}, collection.toArray());
     }
 
     @Test
     void collectionContains() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
+        assertTrue(collection.add("1"));
+        assertTrue(collection.add("2"));
+        assertTrue(collection.add("3"));
+        assertTrue(collection.add("4"));
+        assertTrue(collection.add("5"));
 
         assertTrue(collection.contains("5"));
         assertFalse(collection.contains("10"));
@@ -54,14 +65,19 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionContainsAll() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
+        assertTrue(collection.add("1"));
+        assertTrue(collection.add("2"));
+        assertTrue(collection.add("3"));
+        assertTrue(collection.add("4"));
+        assertTrue(collection.add("5"));
 
-        Collection<String> c2 = createCollection(String.class);
+        Collection<String> c2 = createCollection();
         assertTrue(c2.add("2"));
         assertTrue(c2.add("4"));
         assertTrue(c2.add("5"));
 
-        Collection<String> c3 = createCollection(String.class);
+        Collection<String> c3 = createCollection();
         assertTrue(c3.add("2"));
         assertTrue(c3.add("10"));
         assertTrue(c3.add("5"));
@@ -72,17 +88,28 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionRemove() {
-        Collection<String> collection = createCollection(String.class);
-        assertTrue(collection.remove("4"));
+        Collection<Integer> collection = createCollection();
+        assertTrue(collection.add(1));
+        assertTrue(collection.add(2));
+        assertTrue(collection.add(3));
+        assertTrue(collection.add(4));
+        assertTrue(collection.add(5));
 
-        assertArrayEquals(new Object[]{"1", "2", "3", "5"}, collection.toArray());
+        assertTrue(collection.remove(4));
+
+        assertArrayEquals(new Object[]{1, 2, 3, 5}, collection.toArray());
     }
 
     @Test
     void collectionRemoveAll() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
+        assertTrue(collection.add("1"));
+        assertTrue(collection.add("2"));
+        assertTrue(collection.add("3"));
+        assertTrue(collection.add("4"));
+        assertTrue(collection.add("5"));
 
-        Collection<String> collectionForRemove = createCollection(String.class);
+        Collection<String> collectionForRemove = createCollection();
         assertTrue(collectionForRemove.add("2"));
         assertTrue(collectionForRemove.add("4"));
 
@@ -93,7 +120,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionClear() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
         assertTrue(collection.add("1"));
         assertTrue(collection.add("2"));
         assertTrue(collection.add("3"));
@@ -106,12 +133,12 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionEquals() {
-        Collection<String> c1 = createCollection(String.class);
+        Collection<String> c1 = createCollection();
         assertTrue(c1.add("1"));
         assertTrue(c1.add("2"));
         assertTrue(c1.add("3"));
 
-        Collection<String> c2 = createCollection(String.class);
+        Collection<String> c2 = createCollection();
         assertTrue(c2.add("1"));
         assertTrue(c2.add("2"));
         assertTrue(c2.add("3"));
@@ -126,7 +153,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionToArray() {
-        Collection<String> collection = createCollection(String.class);
+        Collection<String> collection = createCollection();
         assertTrue(collection.add("1"));
         assertTrue(collection.add("2"));
         assertTrue(collection.add("3"));
