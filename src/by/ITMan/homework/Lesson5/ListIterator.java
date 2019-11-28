@@ -31,4 +31,8 @@ public class ListIterator<T> implements Iterator {
         list.remove(index);
         index--;
     }
+
+    public void set(T o) {
+        list.set(index, o);
+    }
 }

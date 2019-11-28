@@ -108,7 +108,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         assertTrue(ll.add("5"));
         assertTrue(ll.add("6"));
 
-        Iterator itr = ll.iterator();
+        ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
             Object temp = itr.next();
 
@@ -130,7 +130,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         assertTrue(ll.add("5"));
         assertTrue(ll.add("6"));
 
-        Iterator itr = ll.iterator();
+        ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
             Object temp = itr.next();
 
@@ -152,7 +152,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         assertTrue(ll.add("5"));
         assertTrue(ll.add("6"));
 
-        Iterator itr = ll.iterator();
+        ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
             Object temp = itr.next();
 
@@ -174,7 +174,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         assertTrue(ll.add("5"));
         assertTrue(ll.add("6"));
 
-        Iterator itr = ll.iterator();
+        ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
             Object temp = itr.next();
 
@@ -184,5 +184,27 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         }
 
         assertArrayEquals(new Object[]{"1", "6"}, ll.toArray());
+    }
+
+    @Test
+    void listIteratorSet() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+        assertTrue(ll.add("4"));
+        assertTrue(ll.add("5"));
+        assertTrue(ll.add("6"));
+
+        ListIterator itr = ll.iterator();
+        while (itr.hasNext()) {
+            Object temp = itr.next();
+
+            if (Objects.equals(temp, "2")) {
+                itr.set("999");
+            }
+        }
+
+        assertArrayEquals(new Object[]{"1", "999", "3", "4", "5", "6"}, ll.toArray());
     }
 }
