@@ -7,7 +7,6 @@ import java.util.Objects;
  * This class implements a linked list.
  *
  * @param <T> the type of the elements
- *
  * @author Dmitry Wroblewski
  */
 public class LinkedList<T> implements List<T> {
@@ -154,8 +153,21 @@ public class LinkedList<T> implements List<T> {
         return elem;
     }
 
+    private void checkIndexForAdd(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    private void checkIndexForGetOrRemove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
     @Override
     public boolean add(int index, T o) {
+        checkIndexForAdd(index);
         Node elem = findElemByIndex(index);
 
         Node newNode = new Node(o, elem.prevNode, elem);
@@ -174,6 +186,8 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<T> collection) {
+        checkIndexForAdd(index);
+
         int i = 0;
 
         for (T x : collection) {
@@ -186,11 +200,14 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
+        checkIndexForAdd(index);
+
         return findElemByIndex(index).getCurrentNodeContent();
     }
 
     @Override
     public T set(int index, T o) {
+        checkIndexForAdd(index);
         Node oldElem = findElemByIndex(index);
 
         setNode(oldElem, o);
@@ -207,6 +224,8 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+        checkIndexForGetOrRemove(index);
+
         Node currentElem = findElemByIndex(index);
         removeNode(currentElem);
 
@@ -392,9 +411,16 @@ public class LinkedList<T> implements List<T> {
 
         @Override
         public void remove() {
+            checkIndex();
             Node node = prevElem;
 
             LinkedList.this.removeNode(node);
+
+            if (node.prevNode == null) {
+                prevElem = null;
+            } else {
+                prevElem = node.prevNode;
+            }
 
             index--;
             currentElem = node.nextNode;
@@ -402,7 +428,14 @@ public class LinkedList<T> implements List<T> {
 
         @Override
         public void set(T o) {
+            checkIndex();
             LinkedList.this.setNode(prevElem, o);
+        }
+
+        private void checkIndex() {
+            if (index == 0) {
+                throw new IllegalStateException();
+            }
         }
     }
 }

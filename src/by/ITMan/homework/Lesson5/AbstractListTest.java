@@ -207,4 +207,41 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
         assertArrayEquals(new Object[]{"1", "999", "3", "4", "5", "6"}, ll.toArray());
     }
+
+    @Test
+    void listAddWrongIndexException() {
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add(-2, "999"));
+    }
+
+    @Test
+    void listRemoveWrongIndexException() {
+        List<String> list = createCollection();
+        assertTrue(list.add("1"));
+        assertTrue(list.add("2"));
+        assertTrue(list.add("3"));
+        assertTrue(list.add("4"));
+        assertTrue(list.add("5"));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-2));
+    }
+
+    @Test
+    void listIteratorCheckIllegalStateException() {
+        List<String> ll = createCollection();
+        assertTrue(ll.add("1"));
+        assertTrue(ll.add("2"));
+        assertTrue(ll.add("3"));
+
+        ListIterator itr = ll.iterator();
+
+        assertThrows(IllegalStateException.class, () -> itr.remove());
+        assertThrows(IllegalStateException.class, () -> itr.set("999"));
+    }
 }

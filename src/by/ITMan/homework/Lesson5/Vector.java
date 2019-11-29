@@ -7,7 +7,6 @@ import java.util.RandomAccess;
  * This one provides the ability to create a dimensionless array.
  *
  * @param <T> the type of the elements
- *
  * @author Dmitry Wroblewski
  */
 public class Vector<T> implements List<T>, RandomAccess {
@@ -40,13 +39,13 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     private void checkIndexForAdd(int index) {
-        if (index < 0 || index > countElements){
+        if (index < 0 || index > countElements) {
             throw new IndexOutOfBoundsException();
         }
     }
 
     private void checkIndexForGetOrRemove(int index) {
-        if (index < 0 || index >= countElements){
+        if (index < 0 || index >= countElements) {
             throw new IndexOutOfBoundsException();
         }
     }
@@ -300,16 +299,22 @@ public class Vector<T> implements List<T>, RandomAccess {
 
         @Override
         public void remove() {
-            if (index == -1) {
-                throw new IllegalStateException();
-            }
+            checkIndex();
 
             Vector.this.remove(index);
             index--;
         }
 
         public void set(T o) {
+            checkIndex();
+
             Vector.this.set(index, o);
+        }
+
+        private void checkIndex() {
+            if (index == -1) {
+                throw new IllegalStateException();
+            }
         }
     }
 }
