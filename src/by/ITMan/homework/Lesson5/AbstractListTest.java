@@ -2,6 +2,7 @@ package by.ITMan.homework.Lesson5;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -243,5 +244,52 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
         assertThrows(IllegalStateException.class, () -> itr.remove());
         assertThrows(IllegalStateException.class, () -> itr.set("999"));
+    }
+
+    @Test
+    void listSort() {
+        List<Integer> list = createCollection();
+        assertTrue(list.add(4));
+        assertTrue(list.add(5));
+        assertTrue(list.add(2));
+        assertTrue(list.add(7));
+        assertTrue(list.add(5));
+        assertTrue(list.add(10));
+        assertTrue(list.add(0));
+        assertTrue(list.add(-5));
+
+        list.sort(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Integer x1 = (Integer) o1;
+                Integer x2 = (Integer) o2;
+
+                return x1.compareTo(x2);
+            }
+        });
+
+        assertArrayEquals(new Object[]{-5, 0, 2, 4, 5, 5, 7, 10}, list.toArray());
+    }
+
+    @Test
+    void listSort2() {
+        List<String> list = createCollection();
+        assertTrue(list.add("113"));
+        assertTrue(list.add("1"));
+        assertTrue(list.add("11115"));
+        assertTrue(list.add("12"));
+        assertTrue(list.add("1114"));
+
+        list.sort(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                int x1 = ((String) o1).length();
+                int x2 = ((String) o2).length();
+
+                return x1 - x2;
+            }
+        });
+
+        assertArrayEquals(new Object[]{"1", "12", "113", "1114", "11115"}, list.toArray());
     }
 }
