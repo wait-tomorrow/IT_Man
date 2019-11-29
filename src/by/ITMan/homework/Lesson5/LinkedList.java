@@ -166,6 +166,10 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> collection) {
+        if (this == collection) {
+            throw new IllegalArgumentException("You can't just add a collection in the same collection!");
+        }
+
         checkIndexForAdd(index);
 
         int i = 0;
@@ -243,6 +247,10 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
+        if (this == collection) {
+            throw new IllegalArgumentException("You can't just add a collection in the same collection!");
+        }
+
         for (T o : collection) {
             offerLast(o);
         }

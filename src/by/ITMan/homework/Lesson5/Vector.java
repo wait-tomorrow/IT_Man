@@ -71,13 +71,17 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> collection) {
+        if (this == collection) {
+            throw new IllegalArgumentException("You can't just add a collection in the same collection!");
+        }
+
         checkIndexForAdd(index);
 
         if (collection.size() == 0) {
             return false;
         }
 
-        if (size() + collection.size() > list.length) {
+        if (size() + collection.size() >= list.length) {
             resize(list.length - size() + collection.size());
         }
 
@@ -143,6 +147,10 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
+        if (this == collection) {
+            throw new IllegalArgumentException("You can't just add a collection in the same collection!");
+        }
+
         return addAll(countElements, collection);
     }
 

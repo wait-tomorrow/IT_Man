@@ -17,7 +17,6 @@ class VectorTest extends AbstractListTest {
         assertTrue(vector.add(1));
         assertTrue(vector.add(2));
 
-
         assertArrayEquals(new Object[]{1, 2}, vector.toArray());
     }
 }

@@ -27,31 +27,32 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listAddAll() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         List<String> addElems = createCollection();
-        assertTrue(addElems.add("1"));
-        assertTrue(addElems.add("1"));
-        assertTrue(addElems.add("10"));
-        assertTrue(addElems.add("8"));
+        addElems.add("1");
+        addElems.add("1");
+        addElems.add("10");
+        addElems.add("8");
 
-        assertTrue(list.addAll(2, addElems));
+        assertThrows(IllegalArgumentException.class, () -> list.addAll(2, list));
 
+        list.addAll(2, addElems);
         assertArrayEquals(new Object[]{"1", "2", "1", "1", "10", "8", "3", "4", "5"}, list.toArray());
     }
 
     @Test
     void listGet() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         assertEquals("1", list.get(0));
     }
@@ -59,11 +60,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listSet() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         assertEquals("2", list.set(1, "999"));
 
@@ -73,11 +74,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listRemove() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         assertEquals("2", list.remove(1));
 
@@ -87,9 +88,9 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listIterator() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
 
         int i = 1;
         for (Object x : ll) {
@@ -101,12 +102,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listIteratorRemove() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
-        assertTrue(ll.add("4"));
-        assertTrue(ll.add("5"));
-        assertTrue(ll.add("6"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
+        ll.add("4");
+        ll.add("5");
+        ll.add("6");
 
         ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
@@ -123,12 +124,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listIteratorRemoveFirst() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
-        assertTrue(ll.add("4"));
-        assertTrue(ll.add("5"));
-        assertTrue(ll.add("6"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
+        ll.add("4");
+        ll.add("5");
+        ll.add("6");
 
         ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
@@ -145,12 +146,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listIteratorRemoveLast() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
-        assertTrue(ll.add("4"));
-        assertTrue(ll.add("5"));
-        assertTrue(ll.add("6"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
+        ll.add("4");
+        ll.add("5");
+        ll.add("6");
 
         ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
@@ -167,12 +168,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listIteratorRemoveMany() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
-        assertTrue(ll.add("4"));
-        assertTrue(ll.add("5"));
-        assertTrue(ll.add("6"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
+        ll.add("4");
+        ll.add("5");
+        ll.add("6");
 
         ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
@@ -190,12 +191,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @SuppressWarnings("unchecked")
     void listIteratorSet() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
-        assertTrue(ll.add("4"));
-        assertTrue(ll.add("5"));
-        assertTrue(ll.add("6"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
+        ll.add("4");
+        ll.add("5");
+        ll.add("6");
 
         ListIterator itr = ll.iterator();
         while (itr.hasNext()) {
@@ -212,11 +213,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listAddWrongIndexException() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         assertThrows(IndexOutOfBoundsException.class, () -> list.add(-2, "999"));
     }
@@ -224,11 +225,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listRemoveWrongIndexException() {
         List<String> list = createCollection();
-        assertTrue(list.add("1"));
-        assertTrue(list.add("2"));
-        assertTrue(list.add("3"));
-        assertTrue(list.add("4"));
-        assertTrue(list.add("5"));
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
 
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-2));
     }
@@ -237,9 +238,9 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @SuppressWarnings("unchecked")
     void listIteratorCheckIllegalStateException() {
         List<String> ll = createCollection();
-        assertTrue(ll.add("1"));
-        assertTrue(ll.add("2"));
-        assertTrue(ll.add("3"));
+        ll.add("1");
+        ll.add("2");
+        ll.add("3");
 
         ListIterator itr = ll.iterator();
 
@@ -250,14 +251,14 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listSort() {
         List<Integer> list = createCollection();
-        assertTrue(list.add(4));
-        assertTrue(list.add(5));
-        assertTrue(list.add(2));
-        assertTrue(list.add(7));
-        assertTrue(list.add(5));
-        assertTrue(list.add(10));
-        assertTrue(list.add(0));
-        assertTrue(list.add(-5));
+        list.add(4);
+        list.add(5);
+        list.add(2);
+        list.add(7);
+        list.add(5);
+        list.add(10);
+        list.add(0);
+        list.add(-5);
 
         list.sort(new Comparator() {
             @Override
@@ -275,11 +276,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     void listSort2() {
         List<String> list = createCollection();
-        assertTrue(list.add("113"));
-        assertTrue(list.add("1"));
-        assertTrue(list.add("11115"));
-        assertTrue(list.add("12"));
-        assertTrue(list.add("1114"));
+        list.add("113");
+        list.add("1");
+        list.add("11115");
+        list.add("12");
+        list.add("1114");
 
         list.sort(new Comparator() {
             @Override

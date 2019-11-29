@@ -13,9 +13,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListGetFirst() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         assertEquals("1", ll.getFirst());
     }
@@ -23,9 +23,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListGetLast() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerFirst("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerFirst("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         assertEquals("3", ll.getLast());
     }
@@ -33,9 +33,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListOfferFirst() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         assertTrue(ll.offerFirst("900"));
 
@@ -57,9 +57,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListPollFirst() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         Object result = ll.pollFirst();
 
@@ -70,9 +70,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListPollLast() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         Object result = ll.pollLast();
 
@@ -83,9 +83,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListToString() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         assertEquals("size = 3 | elems: 1  2  3  ", ll.toString());
     }
@@ -93,9 +93,9 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListToArray() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
-        assertTrue(ll.offerLast("2"));
-        assertTrue(ll.offerLast("3"));
+        ll.offerLast("1");
+        ll.offerLast("2");
+        ll.offerLast("3");
 
         assertArrayEquals(new Object[]{"1", "2", "3"}, ll.toArray());
     }
