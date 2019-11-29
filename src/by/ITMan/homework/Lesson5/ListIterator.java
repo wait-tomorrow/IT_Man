@@ -10,5 +10,10 @@ public interface ListIterator<T> extends Iterator {
 
     void remove();
 
+    /**
+     * Replaces element at the specified position with the specified object.
+     *
+     * @param o the element that will be stored at the specified position after replace
+     */
     void set(T o);
 }

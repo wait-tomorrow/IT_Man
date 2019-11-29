@@ -3,40 +3,57 @@ package by.ITMan.homework.Lesson5;
 import java.util.Objects;
 import java.util.RandomAccess;
 
+/**
+ * This one provides the ability to create a dimensionless array.
+ *
+ * @param <T> the type of the elements
+ *
+ * @author Dmitry Wroblewski
+ */
 public class Vector<T> implements List<T>, RandomAccess {
+
+    /**
+     * This array contains all stored elements.
+     */
     private T[] list;
+
+    /**
+     * The number of elements that list is contains.
+     */
     private int countElements;
 
-    Vector() {
+    /**
+     * Constructs a Vector with standard initial capacity.
+     */
+    public Vector() {
         this(10);
     }
 
+    /**
+     * Constructs a Vector with specified capacity.
+     *
+     * @param initialSize value that determines the initial size of array
+     */
     public Vector(int initialSize) {
         list = (T[]) new Object[initialSize];
         countElements = 0;
     }
 
-    private boolean isIndexNotValidForAdd(int index) {
-        if (index < 0 || index > countElements) {
-            return true;
+    private void checkIndexForAdd(int index) {
+        if (index < 0 || index > countElements){
+            throw new IndexOutOfBoundsException();
         }
-
-        return false;
     }
 
-    private boolean isIndexNotValidForGetOrRemove(int index) {
-        if (index < 0 || index >= countElements) {
-            return true;
+    private void checkIndexForGetOrRemove(int index) {
+        if (index < 0 || index >= countElements){
+            throw new IndexOutOfBoundsException();
         }
-
-        return false;
     }
 
     @Override
     public boolean add(int index, T o) {
-        if (isIndexNotValidForAdd(index)) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexForAdd(index);
 
         if (countElements == list.length) {
             resize();
@@ -53,9 +70,7 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public boolean addAll(int index, Collection<T> collection) {
-        if (isIndexNotValidForAdd(index)) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexForAdd(index);
 
         if (collection.size() == 0) {
             return false;
@@ -76,18 +91,14 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public T get(int index) {
-        if (isIndexNotValidForGetOrRemove(index)) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexForGetOrRemove(index);
 
         return list[index];
     }
 
     @Override
     public T set(int index, T o) {
-        if (isIndexNotValidForGetOrRemove(index)) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexForGetOrRemove(index);
 
         T oldElem = list[index];
         list[index] = o;
@@ -97,9 +108,7 @@ public class Vector<T> implements List<T>, RandomAccess {
 
     @Override
     public T remove(int index) {
-        if (isIndexNotValidForGetOrRemove(index)) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexForGetOrRemove(index);
 
         T deletedElem = list[index];
 
@@ -118,6 +127,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     public int size() {
         return countElements;
     }
+
 
     @Override
     public boolean isEmpty() {
@@ -235,6 +245,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     private void resize() {
         resize(0);
     }
+
 
     public boolean equals(Object obj) {
         if (this == obj) {

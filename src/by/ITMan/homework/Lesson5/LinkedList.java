@@ -3,7 +3,15 @@ package by.ITMan.homework.Lesson5;
 import java.util.Iterator;
 import java.util.Objects;
 
+/**
+ * This class implements a linked list.
+ *
+ * @param <T> the type of the elements
+ *
+ * @author Dmitry Wroblewski
+ */
 public class LinkedList<T> implements List<T> {
+
     private Node firstNode;
     private Node lastNode;
     private int size = 0;
@@ -47,14 +55,30 @@ public class LinkedList<T> implements List<T> {
         }
     }
 
-    T getFirst() {
+    /**
+     * Returns the first element from the list.
+     *
+     * @return the first element from the list
+     */
+    public T getFirst() {
         return firstNode.getCurrentNodeContent();
     }
 
-    T getLast() {
+    /**
+     * Returns the last element from the list.
+     *
+     * @return the last element from the list
+     */
+    public T getLast() {
         return lastNode.getCurrentNodeContent();
     }
 
+    /**
+     * Inserts the specified element to the head of the list.
+     *
+     * @param o specified element to insert
+     * @return {@code true} if element is inserted
+     */
     boolean offerFirst(T o) {
         Node newNode = new Node(o, null, firstNode);
 
@@ -70,6 +94,12 @@ public class LinkedList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Inserts the specified element to the tail of the list.
+     *
+     * @param o specified element to insert
+     * @return {@code true} if element is inserted
+     */
     boolean offerLast(T o) {
         Node newNode = new Node(o, lastNode, null);
 
@@ -85,6 +115,11 @@ public class LinkedList<T> implements List<T> {
         return true;
     }
 
+    /**
+     * Removes the first element of the list and returns removed element.
+     *
+     * @return removed element
+     */
     T pollFirst() {
         Node result = firstNode;
 
@@ -95,6 +130,11 @@ public class LinkedList<T> implements List<T> {
         return result.getCurrentNodeContent();
     }
 
+    /**
+     * Removes the last element of the list and returns removed element.
+     *
+     * @return removed element
+     */
     T pollLast() {
         Node result = lastNode;
 
