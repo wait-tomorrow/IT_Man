@@ -293,6 +293,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         mergeSort(list, temp, 0, size() - 1, comp);
     }
 
+    @SuppressWarnings("unchecked")
     private void mergeSort(Object[] a, Object[] t, int l, int r, Comparator comp) {
         if (l >= r) {
             return;
@@ -322,8 +323,8 @@ public class Vector<T> implements List<T>, RandomAccess {
                 t[k++] = a[j++];
             }
         }
-        for (int i = l; i <= r; i++) {
-            a[i] = t[i];
+        if (r + 1 - l >= 0) {
+            System.arraycopy(t, l, a, l, r + 1 - l);
         }
     }
 
