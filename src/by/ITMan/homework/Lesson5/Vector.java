@@ -284,6 +284,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         quickSort(list, 0, size() - 1, comp);
     }
 
+    @SuppressWarnings("unchecked")
     private void quickSort(Object[] a, int l, int r, Comparator comp) {
         int m = l + (r - l) / 2;
 

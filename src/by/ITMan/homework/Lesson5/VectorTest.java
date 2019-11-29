@@ -37,4 +37,36 @@ class VectorTest extends AbstractListTest {
 
         assertArrayEquals(new Object[]{-5, 0, 2, 4, 5, 5, 7, 10}, vector.toArray());
     }
+
+    @Test
+    void vectorSort2() {
+        Vector<String> vector = createCollection();
+        assertTrue(vector.add("113"));
+        assertTrue(vector.add("1"));
+        assertTrue(vector.add("11115"));
+        assertTrue(vector.add("12"));
+        assertTrue(vector.add("1114"));
+
+        vector.sort(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                int x1 = ((String) o1).length();
+                int x2 = ((String) o2).length();
+
+                return x1 - x2;
+            }
+        });
+
+        assertArrayEquals(new Object[]{"1", "12", "113", "1114", "11115"}, vector.toArray());
+    }
+
+    @Test
+    void vectorAdd2() {
+        Vector<Integer> vector = new Vector<>(2);
+        assertTrue(vector.add(1));
+        assertTrue(vector.add(2));
+
+
+        assertArrayEquals(new Object[]{1, 2}, vector.toArray());
+    }
 }
