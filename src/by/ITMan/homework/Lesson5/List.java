@@ -24,7 +24,7 @@ public interface List<T> extends Collection<T> {
      * @param collection collection contains elements to insert
      * @return {@code true} if all specified elements are inserted successfully
      */
-    boolean addAll(int index, Collection<T> collection);
+    boolean addAll(int index, Collection<? extends T> collection);
 
     /**
      * Returns the element at the specified position.

@@ -70,7 +70,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public boolean addAll(int index, Collection<T> collection) {
+    public boolean addAll(int index, Collection<? extends T> collection) {
         checkIndexForAdd(index);
 
         if (collection.size() == 0) {
@@ -142,7 +142,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public boolean addAll(Collection<T> collection) {
+    public boolean addAll(Collection<? extends T> collection) {
         return addAll(countElements, collection);
     }
 
@@ -152,7 +152,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public boolean containsAll(Collection<T> collection) {
+    public boolean containsAll(Collection<? extends T> collection) {
         for (T o : collection) {
             if (!contains(o)) {
                 return false;
@@ -175,7 +175,7 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public boolean removeAll(Collection<T> collection) {
+    public boolean removeAll(Collection<? extends T> collection) {
         boolean isVectorChanged = false;
 
         for (T o : collection) {

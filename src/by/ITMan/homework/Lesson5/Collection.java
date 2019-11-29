@@ -29,7 +29,7 @@ public interface Collection<T> extends Iterable<T> {
      * @param collection collection contains elements to insert
      * @return {@code true} if all specified elements are inserted successfully
      */
-    boolean addAll(Collection<T> collection);
+    boolean addAll(Collection<? extends T> collection);
 
     /**
      * Returns {@code true} if this collection contains the specified element.
@@ -45,7 +45,7 @@ public interface Collection<T> extends Iterable<T> {
      * @param collection collection contains elements to check
      * @return {@code true} if this collection contains all elements of the specified collection
      */
-    boolean containsAll(Collection<T> collection);
+    boolean containsAll(Collection<? extends T> collection);
 
     /**
      * Removes specified element.
@@ -60,7 +60,7 @@ public interface Collection<T> extends Iterable<T> {
      * @param collection collection contains elements to remove
      * @return {@code true} if collection is changed
      */
-    boolean removeAll(Collection<T> collection);
+    boolean removeAll(Collection<? extends T> collection);
 
     /**
      * Removes all of the elements from collection.

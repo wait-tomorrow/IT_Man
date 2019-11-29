@@ -165,7 +165,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(int index, Collection<T> collection) {
+    public boolean addAll(int index, Collection<? extends T> collection) {
         checkIndexForAdd(index);
 
         int i = 0;
@@ -242,7 +242,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<T> collection) {
+    public boolean addAll(Collection<? extends T> collection) {
         for (T o : collection) {
             offerLast(o);
         }
@@ -262,7 +262,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean containsAll(Collection<T> collection) {
+    public boolean containsAll(Collection<? extends T> collection) {
         for (T x : collection) {
             if (!contains(x)) {
                 return false;
@@ -329,7 +329,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public boolean removeAll(Collection<T> collection) {
+    public boolean removeAll(Collection<? extends T> collection) {
         boolean result = false;
 
         for (T x : collection) {
