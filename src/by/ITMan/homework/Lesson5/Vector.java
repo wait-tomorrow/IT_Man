@@ -250,7 +250,6 @@ public class Vector<T> implements List<T>, RandomAccess {
         resize(0);
     }
 
-
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

@@ -39,7 +39,7 @@ class LinkedListTest extends AbstractListTest {
 
         assertTrue(ll.offerFirst("900"));
 
-        assertArrayEquals(new Object[]{"999", "1", "2", "3"}, ll.toArray());
+        assertArrayEquals(new Object[]{"900", "1", "2", "3"}, ll.toArray());
     }
 
     @Test

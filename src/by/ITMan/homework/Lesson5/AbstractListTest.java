@@ -3,7 +3,6 @@ package by.ITMan.homework.Lesson5;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -188,6 +187,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorSet() {
         List<String> ll = createCollection();
         assertTrue(ll.add("1"));
@@ -234,6 +234,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorCheckIllegalStateException() {
         List<String> ll = createCollection();
         assertTrue(ll.add("1"));

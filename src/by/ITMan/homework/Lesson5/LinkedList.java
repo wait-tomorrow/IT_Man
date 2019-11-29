@@ -11,7 +11,6 @@ import java.util.Objects;
  * @author Dmitry Wroblewski
  */
 public class LinkedList<T> implements List<T> {
-
     private Node firstNode;
     private Node lastNode;
     private int size = 0;
@@ -59,7 +58,7 @@ public class LinkedList<T> implements List<T> {
      * @param o specified element to insert
      * @return {@code true} if element is inserted
      */
-    boolean offerFirst(T o) {
+    public boolean offerFirst(T o) {
         Node newNode = new Node(o, null, firstNode);
 
         if (firstNode == null) {
@@ -80,7 +79,7 @@ public class LinkedList<T> implements List<T> {
      * @param o specified element to insert
      * @return {@code true} if element is inserted
      */
-    boolean offerLast(T o) {
+    public boolean offerLast(T o) {
         Node newNode = new Node(o, lastNode, null);
 
         if (lastNode == null) {
@@ -100,7 +99,7 @@ public class LinkedList<T> implements List<T> {
      *
      * @return removed element
      */
-    T pollFirst() {
+    public T pollFirst() {
         Node result = firstNode;
 
         firstNode = result.nextNode;
@@ -115,7 +114,7 @@ public class LinkedList<T> implements List<T> {
      *
      * @return removed element
      */
-    T pollLast() {
+    public T pollLast() {
         Node result = lastNode;
 
         lastNode = result.prevNode;
