@@ -1,5 +1,6 @@
 package by.ITMan.homework.Lesson5;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.RandomAccess;
 
@@ -33,6 +34,7 @@ public class Vector<T> implements List<T>, RandomAccess {
      *
      * @param initialSize value that determines the initial size of array
      */
+    @SuppressWarnings("unchecked")
     public Vector(int initialSize) {
         list = (T[]) new Object[initialSize];
         countElements = 0;
@@ -185,6 +187,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         return isVectorChanged;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void clear() {
         countElements = 0;
@@ -192,6 +195,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         list = (T[]) new Object[size];
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T[] toArray() {
         int arrSize = size();
@@ -213,6 +217,7 @@ public class Vector<T> implements List<T>, RandomAccess {
         return -1;
     }
 
+    @SuppressWarnings("unchecked")
     private void resize(int addCapacity) {
         int newCapacity;
 
@@ -272,6 +277,62 @@ public class Vector<T> implements List<T>, RandomAccess {
         }
 
         return true;
+    }
+
+    @Override
+    public void sort(Comparator comp) {
+        quickSort(list, 0, size() - 1, comp);
+    }
+
+    private void quickSort(Object[] a, int l, int r, Comparator comp) {
+        int m = l + (r - l) / 2;
+
+        if (comp.compare(a[l], a[m]) > 0) {
+            Object t = a[l];
+            a[l] = a[m];
+            a[m] = t;
+        }
+
+        if (comp.compare(a[l], a[r]) > 0) {
+            Object t = a[l];
+            a[l] = a[r];
+            a[r] = t;
+        }
+
+        if (comp.compare(a[m], a[r]) > 0) {
+            Object t = a[r];
+            a[r] = a[m];
+            a[m] = t;
+        }
+
+        Object x = a[m];
+
+        int i = l + 1;
+        int j = r - 1;
+
+        while (i <= j) {
+            while (comp.compare(a[i], x) < 0) {
+                i++;
+            }
+            while (comp.compare(a[j], x) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                Object t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+                i++;
+                j--;
+            }
+        }
+
+        if (l < j) {
+            quickSort(a, l, j, comp);
+        }
+
+        if (i < r) {
+            quickSort(a, i, r, comp);
+        }
     }
 
     @Override

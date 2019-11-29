@@ -1,5 +1,6 @@
 package by.ITMan.homework.Lesson5;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -29,28 +30,8 @@ public class LinkedList<T> implements List<T> {
             this.nextNode = nextElem;
         }
 
-        public Node getNextNode() {
-            return nextNode;
-        }
-
-        public void setNextNode(Node nextNode) {
-            this.nextNode = nextNode;
-        }
-
-        public Node getPrevNode() {
-            return prevNode;
-        }
-
-        public void setPrevNode(Node prevNode) {
-            this.prevNode = prevNode;
-        }
-
         public T getCurrentNodeContent() {
             return currentElem;
-        }
-
-        public void setCurrentNodeContent(T currentElem) {
-            this.currentElem = currentElem;
         }
     }
 
@@ -363,6 +344,11 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
+    public void sort(Comparator comp) {
+
+    }
+
+    @Override
     public void clear() {
         size = 0;
         firstNode = null;
@@ -370,6 +356,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T[] toArray() {
         T[] arr = (T[]) new Object[size()];
 

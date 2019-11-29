@@ -23,7 +23,7 @@ class LinkedListTest extends AbstractListTest {
     @Test
     void linkedListGetLast() {
         LinkedList<String> ll = createCollection();
-        assertTrue(ll.offerLast("1"));
+        assertTrue(ll.offerFirst("1"));
         assertTrue(ll.offerLast("2"));
         assertTrue(ll.offerLast("3"));
 
@@ -37,7 +37,7 @@ class LinkedListTest extends AbstractListTest {
         assertTrue(ll.offerLast("2"));
         assertTrue(ll.offerLast("3"));
 
-        assertTrue(ll.offerFirst("999"));
+        assertTrue(ll.offerFirst("900"));
 
         assertArrayEquals(new Object[]{"999", "1", "2", "3"}, ll.toArray());
     }

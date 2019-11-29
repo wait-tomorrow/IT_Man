@@ -10,7 +10,7 @@ public interface List<T> extends Collection<T> {
      * elements to the right.
      *
      * @param index index determines the position of inserting element
-     * @param o element will be inserted
+     * @param o     element will be inserted
      * @return {@code true} if specified element is inserted successfully
      */
     boolean add(int index, T o);
@@ -20,7 +20,7 @@ public interface List<T> extends Collection<T> {
      * Shifts the element currently at that position and other
      * elements to the right.
      *
-     * @param index index determines the start position of the inserting elements
+     * @param index      index determines the start position of the inserting elements
      * @param collection collection contains elements to insert
      * @return {@code true} if all specified elements are inserted successfully
      */
@@ -39,7 +39,7 @@ public interface List<T> extends Collection<T> {
      * with the specified element.
      *
      * @param index index of the element to replace
-     * @param o element that will be stored at the specified position after replace
+     * @param o     element that will be stored at the specified position after replace
      * @return replaced element
      */
     T set(int index, T o);
@@ -65,7 +65,5 @@ public interface List<T> extends Collection<T> {
      *
      * @param comp comparator defines the way objects will be compared
      */
-    default void sort(Comparator comp){
-
-    };
+    void sort(Comparator comp);
 }
