@@ -287,59 +287,43 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void sort(Comparator comp) {
-        quickSort(list, 0, size() - 1, comp);
+        T[] temp = (T[]) new Object[list.length];
+        mergeSort(list, temp, 0, size() - 1, comp);
     }
 
-    @SuppressWarnings("unchecked")
-    private void quickSort(Object[] a, int l, int r, Comparator comp) {
+    private void mergeSort(Object[] a, Object[] t, int l, int r, Comparator comp) {
+        if (l >= r) {
+            return;
+        }
         int m = l + (r - l) / 2;
+        mergeSort(a, t, l, m, comp);
+        mergeSort(a, t, m + 1, r, comp);
 
-        if (comp.compare(a[l], a[m]) > 0) {
-            Object t = a[l];
-            a[l] = a[m];
-            a[m] = t;
-        }
-
-        if (comp.compare(a[l], a[r]) > 0) {
-            Object t = a[l];
-            a[l] = a[r];
-            a[r] = t;
-        }
-
-        if (comp.compare(a[m], a[r]) > 0) {
-            Object t = a[r];
-            a[r] = a[m];
-            a[m] = t;
-        }
-
-        Object x = a[m];
-
-        int i = l + 1;
-        int j = r - 1;
-
-        while (i <= j) {
-            while (comp.compare(a[i], x) < 0) {
-                i++;
+        {
+            int i = l;
+            int j = m + 1;
+            int k = l;
+            while (i <= m && j <= r) {
+                while (i <= m && (comp.compare(a[i], a[j]) <= 0)) {
+                    t[k++] = a[i++];
+                }
+                if (i <= m) {
+                    while (j <= r && (comp.compare(a[j], a[i]) < 0)) {
+                        t[k++] = a[j++];
+                    }
+                }
             }
-            while (comp.compare(a[j], x) > 0) {
-                j--;
+            while (i <= m) {
+                t[k++] = a[i++];
             }
-            if (i <= j) {
-                Object t = a[i];
-                a[i] = a[j];
-                a[j] = t;
-                i++;
-                j--;
+            while (j <= r) {
+                t[k++] = a[j++];
             }
         }
-
-        if (l < j) {
-            quickSort(a, l, j, comp);
-        }
-
-        if (i < r) {
-            quickSort(a, i, r, comp);
+        for (int i = l; i <= r; i++) {
+            a[i] = t[i];
         }
     }
 

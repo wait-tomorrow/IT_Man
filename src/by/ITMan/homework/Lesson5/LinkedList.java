@@ -1,5 +1,6 @@
 package by.ITMan.homework.Lesson5;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -31,6 +32,10 @@ public class LinkedList<T> implements List<T> {
 
         public T getCurrentNodeContent() {
             return currentElem;
+        }
+
+        public void setCurrentNodeContent(T o) {
+            this.currentElem = o;
         }
     }
 
@@ -350,9 +355,53 @@ public class LinkedList<T> implements List<T> {
         return result;
     }
 
-    @Override
-    public void sort(Comparator comp) {
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public void sort(Comparator comp) {
+        Object[] list = toArray();
+        Object[] temp = new Object[size];
+        mergeSort(list, temp, 0, size() - 1, comp);
+
+        ListIterator itr = iterator();
+        for (Object x : list) {
+            itr.next();
+            itr.set(x);
+        }
+    }
+
+    private void mergeSort(Object[] a, Object[] t, int l, int r, Comparator comp) {
+        if (l >= r) {
+            return;
+        }
+        int m = l + (r - l) / 2;
+        mergeSort(a, t, l, m, comp);
+        mergeSort(a, t, m + 1, r, comp);
+
+        {
+            int i = l;
+            int j = m + 1;
+            int k = l;
+            while (i <= m && j <= r) {
+                while (i <= m && (comp.compare(a[i], a[j]) <= 0)) {
+                    t[k++] = a[i++];
+                }
+                if (i <= m) {
+                    while (j <= r && (comp.compare(a[j], a[i]) < 0)) {
+                        t[k++] = a[j++];
+                    }
+                }
+            }
+            while (i <= m) {
+                t[k++] = a[i++];
+            }
+            while (j <= r) {
+                t[k++] = a[j++];
+            }
+        }
+        for (int i = l; i <= r; i++) {
+            a[i] = t[i];
+        }
     }
 
     @Override
@@ -423,7 +472,7 @@ public class LinkedList<T> implements List<T> {
         @Override
         public void set(T o) {
             checkIndex();
-            LinkedList.this.setNode(prevElem, o);
+            prevElem.setCurrentNodeContent(o);
         }
 
         private void checkIndex() {
