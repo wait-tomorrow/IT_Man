@@ -260,13 +260,10 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         list.add(0);
         list.add(-5);
 
-        list.sort(new Comparator() {
+        list.sort(new Comparator<Integer>() {
             @Override
-            public int compare(Object o1, Object o2) {
-                Integer x1 = (Integer) o1;
-                Integer x2 = (Integer) o2;
-
-                return x1.compareTo(x2);
+            public int compare(Integer i1, Integer i2) {
+                return i1.compareTo(i2);
             }
         });
 
@@ -282,11 +279,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         list.add("12");
         list.add("1114");
 
-        list.sort(new Comparator() {
+        list.sort(new Comparator<String>() {
             @Override
-            public int compare(Object o1, Object o2) {
-                int x1 = ((String) o1).length();
-                int x2 = ((String) o2).length();
+            public int compare(String s1, String s2) {
+                int x1 = s1.length();
+                int x2 = s2.length();
 
                 return x1 - x2;
             }
