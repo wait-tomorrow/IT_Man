@@ -58,12 +58,12 @@ public interface List<T> extends Collection<T> {
      *
      * @return an iterator for this collection
      */
-    ListIterator iterator();
+    ListIterator<T> iterator();
 
     /**
      * This method will sort the list with O(N log N) complexity.
      *
      * @param comp comparator defines the way objects will be compared
      */
-    void sort(Comparator comp);
+    void sort(Comparator<T> comp);
 }

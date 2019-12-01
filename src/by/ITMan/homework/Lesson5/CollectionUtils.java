@@ -4,8 +4,7 @@ import java.util.Comparator;
 
 public class CollectionUtils {
 
-    @SuppressWarnings("unchecked")
-    public static void mergeSort(Object[] a, Object[] t, int l, int r, Comparator comp) {
+    public static <T> void mergeSort(T[] a, T[] t, int l, int r, Comparator<T> comp) {
         if (l >= r) {
             return;
         }

@@ -357,13 +357,13 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void sort(Comparator comp) {
-        Object[] list = toArray();
-        Object[] temp = new Object[size];
+    public void sort(Comparator<T> comp) {
+        T[] list = toArray();
+        T[] temp = (T[]) new Object[size];
         CollectionUtils.mergeSort(list, temp, 0, size() - 1, comp);
 
-        ListIterator itr = iterator();
-        for (Object x : list) {
+        ListIterator<T> itr = iterator();
+        for (T x : list) {
             itr.next();
             itr.set(x);
         }
@@ -390,7 +390,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public ListIterator iterator() {
+    public ListIterator<T> iterator() {
         return new LinkedListIterator();
     }
 

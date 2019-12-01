@@ -2,7 +2,6 @@ package by.ITMan.homework.Lesson5;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,14 +64,13 @@ abstract class AbstractListTest extends AbstractCollectionTest {
         List<String> ll = createCollection("1", "2", "3");
 
         int i = 1;
-        for (Object x : ll) {
+        for (String x : ll) {
             assertEquals(i + "", x);
             i++;
         }
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorRemove() {
         List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
@@ -89,7 +87,6 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorRemoveFirst() {
         List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
@@ -106,7 +103,6 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorRemoveLast() {
         List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
@@ -123,7 +119,6 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorRemoveMany() {
         List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
@@ -140,7 +135,6 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorSet() {
         List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
@@ -171,13 +165,12 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     void listIteratorCheckIllegalStateException() {
         List<String> ll = createCollection("1", "2", "3");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
 
-        assertThrows(IllegalStateException.class, () -> itr.remove());
+        assertThrows(IllegalStateException.class, itr::remove);
         assertThrows(IllegalStateException.class, () -> itr.set("999"));
     }
 
@@ -185,12 +178,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     void listSort() {
         List<Integer> list = createCollection(4, 5, 2, 7, 5, 10, 0, -5);
 
-        list.sort(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer i1, Integer i2) {
-                return i1.compareTo(i2);
-            }
-        });
+        list.sort(Integer::compareTo);
 
         assertArrayEquals(new Object[]{-5, 0, 2, 4, 5, 5, 7, 10}, list.toArray());
     }
@@ -199,14 +187,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     void listSort2() {
         List<String> list = createCollection("113", "1", "11115", "12", "1114");
 
-        list.sort(new Comparator<String>() {
-            @Override
-            public int compare(String s1, String s2) {
-                int x1 = s1.length();
-                int x2 = s2.length();
+        list.sort((s1, s2) -> {
+            int x1 = s1.length();
+            int x2 = s2.length();
 
-                return x1 - x2;
-            }
+            return x1 - x2;
         });
 
         assertArrayEquals(new Object[]{"1", "12", "113", "1114", "11115"}, list.toArray());

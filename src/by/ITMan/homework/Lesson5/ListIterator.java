@@ -2,7 +2,7 @@ package by.ITMan.homework.Lesson5;
 
 import java.util.Iterator;
 
-public interface ListIterator<T> extends Iterator {
+public interface ListIterator<T> extends Iterator<T> {
 
     boolean hasNext();
 
