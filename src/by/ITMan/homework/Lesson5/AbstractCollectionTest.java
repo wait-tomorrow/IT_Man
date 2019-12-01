@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 abstract class AbstractCollectionTest {
-    abstract <T> Collection<T> createCollection();
+    abstract <T> Collection<T> createCollection(T... elements);
 
     @Test
     void collectionIsEmpty() {
@@ -31,19 +31,8 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionAddAll() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
-        collection.add("4");
-        collection.add("5");
-
-        Collection<String> addElems = createCollection();
-
-        addElems.add("1");
-        addElems.add("1");
-        addElems.add("10");
-        addElems.add("8");
+        Collection<String> collection = createCollection("1", "2", "3", "4", "5");
+        Collection<String> addElems = createCollection("1", "1", "10", "8");
 
         assertTrue(collection.addAll(addElems));
 
@@ -52,12 +41,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionContains() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
-        collection.add("4");
-        collection.add("5");
+        Collection<String> collection = createCollection("1", "2", "3", "4", "5");
 
         assertTrue(collection.contains("5"));
         assertFalse(collection.contains("10"));
@@ -65,22 +49,9 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionContainsAll() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
-        collection.add("4");
-        collection.add("5");
-
-        Collection<String> c2 = createCollection();
-        c2.add("2");
-        c2.add("4");
-        c2.add("5");
-
-        Collection<String> c3 = createCollection();
-        c3.add("2");
-        c3.add("10");
-        c3.add("5");
+        Collection<String> collection = createCollection("1", "2", "3", "4", "5");
+        Collection<String> c2 = createCollection("2", "4", "5");
+        Collection<String> c3 = createCollection("2", "10", "5");
 
         assertTrue(collection.containsAll(c2));
         assertFalse(collection.containsAll(c3));
@@ -88,12 +59,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionRemove() {
-        Collection<Integer> collection = createCollection();
-        collection.add(1);
-        collection.add(2);
-        collection.add(3);
-        collection.add(4);
-        collection.add(5);
+        Collection<Integer> collection = createCollection(1, 2, 3, 4, 5);
 
         assertTrue(collection.remove(4));
 
@@ -102,16 +68,8 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionRemoveAll() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
-        collection.add("4");
-        collection.add("5");
-
-        Collection<String> collectionForRemove = createCollection();
-        collectionForRemove.add("2");
-        collectionForRemove.add("4");
+        Collection<String> collection = createCollection("1", "2", "3", "4", "5");
+        Collection<String> collectionForRemove = createCollection("2", "4");
 
         assertTrue(collection.removeAll(collectionForRemove));
 
@@ -120,10 +78,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionClear() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
+        Collection<String> collection = createCollection("1", "2", "3");
 
         collection.clear();
 
@@ -133,15 +88,8 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionEquals() {
-        Collection<String> c1 = createCollection();
-        c1.add("1");
-        c1.add("2");
-        c1.add("3");
-
-        Collection<String> c2 = createCollection();
-        c2.add("1");
-        c2.add("2");
-        c2.add("3");
+        Collection<String> c1 = createCollection("1", "2", "3");
+        Collection<String> c2 = createCollection("1", "2", "3");
 
         assertArrayEquals(new Object[]{"1", "2", "3"}, c1.toArray());
         assertArrayEquals(new Object[]{"1", "2", "3"}, c2.toArray());
@@ -153,10 +101,7 @@ abstract class AbstractCollectionTest {
 
     @Test
     void collectionToArray() {
-        Collection<String> collection = createCollection();
-        collection.add("1");
-        collection.add("2");
-        collection.add("3");
+        Collection<String> collection = createCollection("1", "2", "3");
 
         assertArrayEquals(new Object[]{"1", "2", "3"}, collection.toArray());
     }

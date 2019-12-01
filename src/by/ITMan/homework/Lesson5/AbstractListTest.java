@@ -8,7 +8,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractListTest extends AbstractCollectionTest {
-    abstract <T> List<T> createCollection();
+    abstract <T> List<T> createCollection(T... elements);
 
     @Test
     void listAdd() {
@@ -26,18 +26,8 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listAddAll() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
-
-        List<String> addElems = createCollection();
-        addElems.add("1");
-        addElems.add("1");
-        addElems.add("10");
-        addElems.add("8");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
+        List<String> addElems = createCollection("1", "1", "10", "8");
 
         assertThrows(IllegalArgumentException.class, () -> list.addAll(2, list));
 
@@ -47,24 +37,14 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listGet() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
 
         assertEquals("1", list.get(0));
     }
 
     @Test
     void listSet() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
 
         assertEquals("2", list.set(1, "999"));
 
@@ -73,12 +53,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listRemove() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
 
         assertEquals("2", list.remove(1));
 
@@ -87,10 +62,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listIterator() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
+        List<String> ll = createCollection("1", "2", "3");
 
         int i = 1;
         for (Object x : ll) {
@@ -100,18 +72,13 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorRemove() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
-        ll.add("4");
-        ll.add("5");
-        ll.add("6");
+        List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
         while (itr.hasNext()) {
-            Object temp = itr.next();
+            String temp = itr.next();
 
             if (Objects.equals(temp, "4")) {
                 itr.remove();
@@ -122,18 +89,13 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorRemoveFirst() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
-        ll.add("4");
-        ll.add("5");
-        ll.add("6");
+        List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
         while (itr.hasNext()) {
-            Object temp = itr.next();
+            String temp = itr.next();
 
             if (Objects.equals(temp, "1")) {
                 itr.remove();
@@ -144,18 +106,13 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorRemoveLast() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
-        ll.add("4");
-        ll.add("5");
-        ll.add("6");
+        List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
         while (itr.hasNext()) {
-            Object temp = itr.next();
+            String temp = itr.next();
 
             if (Objects.equals(temp, "6")) {
                 itr.remove();
@@ -166,18 +123,13 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void listIteratorRemoveMany() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
-        ll.add("4");
-        ll.add("5");
-        ll.add("6");
+        List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
         while (itr.hasNext()) {
-            Object temp = itr.next();
+            String temp = itr.next();
 
             if (!Objects.equals(temp, "1") && !Objects.equals(temp, "6")) {
                 itr.remove();
@@ -190,17 +142,11 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     @SuppressWarnings("unchecked")
     void listIteratorSet() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
-        ll.add("4");
-        ll.add("5");
-        ll.add("6");
+        List<String> ll = createCollection("1", "2", "3", "4", "5", "6");
 
-        ListIterator itr = ll.iterator();
+        ListIterator<String> itr = ll.iterator();
         while (itr.hasNext()) {
-            Object temp = itr.next();
+            String temp = itr.next();
 
             if (Objects.equals(temp, "2")) {
                 itr.set("999");
@@ -212,24 +158,14 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listAddWrongIndexException() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
 
         assertThrows(IndexOutOfBoundsException.class, () -> list.add(-2, "999"));
     }
 
     @Test
     void listRemoveWrongIndexException() {
-        List<String> list = createCollection();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
+        List<String> list = createCollection("1", "2", "3", "4", "5");
 
         assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-2));
     }
@@ -237,10 +173,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
     @Test
     @SuppressWarnings("unchecked")
     void listIteratorCheckIllegalStateException() {
-        List<String> ll = createCollection();
-        ll.add("1");
-        ll.add("2");
-        ll.add("3");
+        List<String> ll = createCollection("1", "2", "3");
 
         ListIterator itr = ll.iterator();
 
@@ -250,15 +183,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listSort() {
-        List<Integer> list = createCollection();
-        list.add(4);
-        list.add(5);
-        list.add(2);
-        list.add(7);
-        list.add(5);
-        list.add(10);
-        list.add(0);
-        list.add(-5);
+        List<Integer> list = createCollection(4, 5, 2, 7, 5, 10, 0, -5);
 
         list.sort(new Comparator<Integer>() {
             @Override
@@ -272,12 +197,7 @@ abstract class AbstractListTest extends AbstractCollectionTest {
 
     @Test
     void listSort2() {
-        List<String> list = createCollection();
-        list.add("113");
-        list.add("1");
-        list.add("11115");
-        list.add("12");
-        list.add("1114");
+        List<String> list = createCollection("113", "1", "11115", "12", "1114");
 
         list.sort(new Comparator<String>() {
             @Override

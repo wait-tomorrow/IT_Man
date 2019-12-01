@@ -7,8 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class VectorTest extends AbstractListTest {
 
     @Override
-    <T> Vector<T> createCollection() {
-        return new Vector<>();
+    <T> Vector<T> createCollection(T... elements) {
+        Vector<T> vector = new Vector<>();
+        for (T x : elements) {
+            vector.add(x);
+        }
+        return vector;
     }
 
     @Test
