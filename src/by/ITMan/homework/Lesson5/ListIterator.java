@@ -4,12 +4,6 @@ import java.util.Iterator;
 
 public interface ListIterator<T> extends Iterator<T> {
 
-    boolean hasNext();
-
-    T next();
-
-    void remove();
-
     /**
      * Replaces element at the specified position with the specified object.
      *
