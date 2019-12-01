@@ -15,12 +15,12 @@ public class Vector<T> implements List<T>, RandomAccess {
     /**
      * This array contains all stored elements.
      */
-    private T[] list;
+    protected T[] list;
 
     /**
      * The number of elements that list is contains.
      */
-    private int countElements;
+    protected int countElements;
 
     /**
      * Constructs a Vector with standard initial capacity.
