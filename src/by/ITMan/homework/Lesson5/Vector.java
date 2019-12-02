@@ -287,13 +287,14 @@ public class Vector<T> implements List<T>, RandomAccess {
     }
 
     @Override
-    public void sort(Comparator comp) {
-        Object[] temp = new Object[list.length];
+    @SuppressWarnings("unchecked")
+    public void sort(Comparator<T> comp) {
+        T[] temp = (T[]) new Object[list.length];
         CollectionUtils.mergeSort(list, temp, 0, size() - 1, comp);
     }
 
     @Override
-    public ListIterator iterator() {
+    public ListIterator<T> iterator() {
         return new VectorIterator();
     }
 

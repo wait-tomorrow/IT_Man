@@ -38,35 +38,20 @@ class CollectionUtilsTest {
     void min() {
         Collection<Integer> collection = CollectionUtils.asList(5, 3, 8, 6, 0, 1);
 
-        assertEquals(0, CollectionUtils.min(collection, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        }));
+        assertEquals(0, CollectionUtils.min(collection, Comparator.naturalOrder()));
     }
 
     @Test
     void max() {
         Collection<Integer> collection = CollectionUtils.asList(5, 3, 8, 6, 0, 1);
 
-        assertEquals(8, CollectionUtils.max(collection, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        }));
+        assertEquals(8, CollectionUtils.max(collection, Comparator.naturalOrder()));
     }
 
     @Test
     void binarySearch() {
         List<Integer> list = CollectionUtils.asList(1, 2, 3, 4, 5, 6, 7, 8);
-        Comparator<Integer> comp = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        };
+        Comparator<Integer> comp = Comparator.naturalOrder();
 
         assertEquals(0, CollectionUtils.binarySearch(list, 1, comp));
         assertEquals(1, CollectionUtils.binarySearch(list, 2, comp));
@@ -92,12 +77,7 @@ class CollectionUtilsTest {
         assertTrue(list.add(8));
         assertArrayEquals(new Object[]{1, 2, 3, 4, 5, 6, 7, 8}, list.toArray());
 
-        Comparator<Integer> comp = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
-            }
-        };
+        Comparator<Integer> comp = Comparator.naturalOrder();
 
         assertEquals(0, CollectionUtils.binarySearch(list, 1, comp));
         assertEquals(1, CollectionUtils.binarySearch(list, 2, comp));
