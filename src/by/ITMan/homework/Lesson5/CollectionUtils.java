@@ -1,6 +1,8 @@
 package by.ITMan.homework.Lesson5;
 
 import java.util.Comparator;
+import java.util.Objects;
+import java.util.RandomAccess;
 
 public class CollectionUtils {
 
@@ -73,6 +75,54 @@ public class CollectionUtils {
 
         return max;
     }
+
+    /**
+     * Returns index of specified element.
+     *
+     * @param list list of elements
+     * @param obj  element to search
+     * @param comp comparator
+     * @return index of specified element
+     */
+    public static <T> int binarySearch(List<T> list, T obj, Comparator<T> comp) {
+        T[] listArr = list.toArray();
+
+        if (list instanceof RandomAccess) {
+            return binarySearch(listArr, 0, listArr.length - 1, obj, comp);
+
+        } else {
+            int index = 0;
+            for (T element : list) {
+                if (Objects.equals(element, obj)) {
+                    return index;
+                }
+
+                index++;
+            }
+        }
+
+        return -1;
+    }
+
+    private static <T> int binarySearch(T[] arr, int first, int last, T obj, Comparator<T> comp) {
+        int mid = first + (last - first) / 2;
+
+        if (first <= last) {
+            if (obj.equals(arr[mid])) {
+                return mid;
+            }
+
+            if (comp.compare(arr[mid], obj) < 0) {
+                return binarySearch(arr, mid + 1, last, obj, comp);
+
+            } else if (comp.compare(arr[mid], obj) > 0) {
+                return binarySearch(arr, first, mid - 1, obj, comp);
+            }
+        }
+
+        return -1;
+    }
+
 
     /**
      * Reverse the specified array.
