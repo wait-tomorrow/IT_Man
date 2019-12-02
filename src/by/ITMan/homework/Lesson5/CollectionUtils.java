@@ -79,7 +79,7 @@ public class CollectionUtils {
      *
      * @param list list to reverse
      */
-    public static <T> void reverse(List<T> list){
+    public static <T> void reverse(List<T> list) {
 
     }
 
@@ -163,8 +163,9 @@ public class CollectionUtils {
 
     private static class UnmodifiableList<T> extends Vector<T> {
         public UnmodifiableList(T[] elements) {
-            this.list = elements;
-            this.countElements = elements.length;
+            for (int i = 0; i < elements.length; i++) {
+                super.add(i, elements[i]);
+            }
         }
 
         @Override
