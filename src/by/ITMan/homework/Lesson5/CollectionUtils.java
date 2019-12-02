@@ -2,6 +2,7 @@ package by.ITMan.homework.Lesson5;
 
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Random;
 import java.util.RandomAccess;
 
 public class CollectionUtils {
@@ -123,14 +124,64 @@ public class CollectionUtils {
         return -1;
     }
 
-
     /**
      * Reverse the specified array.
      *
      * @param list list to reverse
      */
     public static <T> void reverse(List<T> list) {
+        T[] arr = list.toArray();
 
+        //a bit slowly for Random Access but...it's "all-purpose"
+        reverseArray(arr);
+
+        int lastIndex = 0;
+        ListIterator<T> listIterator = list.iterator();
+
+        while (listIterator.hasNext()) {
+            listIterator.next();
+            listIterator.set(arr[lastIndex++]);
+        }
+    }
+
+    private static <T> void reverseArray(T[] arr) {
+        int listSize = arr.length - 1;
+
+        for (int i = 0; i <= listSize / 2; i++) {
+            T temp = arr[listSize - i];
+            arr[listSize - i] = arr[i];
+            arr[i] = temp;
+        }
+    }
+
+    /**
+     * Changes list randomly.
+     *
+     * @param list list to change
+     */
+    public static <T> void shuffle(List<T> list) {
+        T[] arr = list.toArray();
+
+        changeArrayRandomly(arr);
+
+        int lastIndex = 0;
+        ListIterator<T> listIterator = list.iterator();
+
+        while (listIterator.hasNext()) {
+            listIterator.next();
+            listIterator.set(arr[lastIndex++]);
+        }
+    }
+
+    private static <T> void changeArrayRandomly(T[] arr) {
+        Random rand = new Random();
+
+        for (int i = 0; i < arr.length; i++) {
+            int element = rand.nextInt(arr.length);
+            T temp = arr[element];
+            arr[element] = arr[i];
+            arr[i] = temp;
+        }
     }
 
     private static class UnmodifiableLinkedList<T> extends LinkedList<T> {
